@@ -16,6 +16,7 @@ The intended system brings together:
 - **Actors and agent runtime** — persistent people and AI employee identities, with dynamic runtimes that can execute tasks and be restarted or replaced independently.
 - **Engineering capabilities** — policy, tools, memory, repositories, graph context, and event-driven coordination added as the core workflow requires them.
 - **Desktop companion and Office interface** — a Tauri desktop app that gives the user a persistent PET companion and a practical interface for viewing and controlling Office activity.
+- **PET avatar options** — a proposed catalogue of 20 visual identities for review, following shared disconnected/connected outfit and status rules.
 - **3D virtual office** — an immersive view of employees and company activity, designed to target the smoothness and liveliness of The Sims and AgentOffice.
 - **Other edge clients** — interfaces through which people interact with and oversee the company.
 
@@ -36,10 +37,11 @@ These are parts of one system with separate responsibilities. The desktop PET an
 2. **Make company state durable:** define PostgreSQL schemas and migrations, then implement repositories and Office use cases against them.
 3. **Add the service contract:** grow the HTTP API around Office use cases and integrate external IAM at the boundary.
 4. **Build the desktop companion and Office UI:** use Tauri for the desktop shell, PET companion, and user-facing Office panels. Keep the UI connected to Office APIs rather than embedding company truth in the client.
-5. **Prototype the immersive 3D office:** evaluate a dedicated 3D engine, starting with a representative scene containing a room, several employees, and basic movement/idle animation. Unity is the current candidate for the Sims/AgentOffice smoothness target; keep the renderer decision open until the prototype is profiled on target hardware.
-6. **Support agent work:** introduce actor lifecycle, dynamic Agent Runtime, policy, tools, memory, and event-bus capabilities as concrete use cases require them.
-7. **Add graph context:** use Apache AGE for relationship and context queries while keeping authoritative records in PostgreSQL.
-8. **Validate end-to-end:** add integration and system tests around durable state, permissions, task execution, desktop workflows, and 3D projections.
+5. **Explore PET designs:** review the [20 proposed avatar options](avatar/AVATAR_OPTIONS.md), choose a visual direction, and create a representative connected/disconnected asset pair before producing the full catalogue.
+6. **Prototype the immersive 3D office:** evaluate a dedicated 3D engine, starting with a representative scene containing a room, several employees, and basic movement/idle animation. Unity is the current candidate for the Sims/AgentOffice smoothness target; keep the renderer decision open until the prototype is profiled on target hardware.
+7. **Support agent work:** introduce actor lifecycle, dynamic Agent Runtime, policy, tools, memory, and event-bus capabilities as concrete use cases require them.
+8. **Add graph context:** use Apache AGE for relationship and context queries while keeping authoritative records in PostgreSQL.
+9. **Validate end-to-end:** add integration and system tests around durable state, permissions, task execution, desktop workflows, and 3D projections.
 
 The sequence is intentional: establish the source of truth and service boundary, then add usable interfaces and execution capabilities. The 3D office is an explicit visual-quality goal, but its engine and final architecture should be validated with a realistic prototype before full production investment. Reserved directories mark intended direction; they do not imply implementation is complete.
 
@@ -50,6 +52,7 @@ The initial implementation is the first foundation milestone:
 - `crates/domain` contains infrastructure-independent employee concepts.
 - `crates/office-core` defines the Office use-case boundary and repository port.
 - `crates/office-api` provides a minimal HTTP health endpoint.
+- `avatar/AVATAR_OPTIONS.md` documents 20 proposed PET visual directions; none is selected as the default.
 - Planned crates and top-level areas are reserved for later work.
 
 PostgreSQL persistence, migrations, Apache AGE, external IAM, agent execution, Tauri desktop app, PET assets, and the 3D office are **not implemented yet**.
