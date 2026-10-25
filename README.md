@@ -15,10 +15,11 @@ The intended system brings together:
 - **Office** — the company control plane: employees, positions, work, coordination, and durable company state.
 - **Actors and agent runtime** — persistent people and AI employee identities, with dynamic runtimes that can execute tasks and be restarted or replaced independently.
 - **Engineering capabilities** — policy, tools, memory, repositories, graph context, and event-driven coordination added as the core workflow requires them.
-- **Edge clients** — interfaces through which people interact with and oversee the company.
-- **Avatars and 3D office** — a visual way to represent actors and company activity.
+- **Desktop companion and Office interface** — a Tauri desktop app that gives the user a persistent PET companion and a practical interface for viewing and controlling Office activity.
+- **3D virtual office** — an immersive view of employees and company activity, designed to target the smoothness and liveliness of The Sims and AgentOffice.
+- **Other edge clients** — interfaces through which people interact with and oversee the company.
 
-These are parts of one system with separate responsibilities. The 3D office is a view of the company, not where company state is stored or decided.
+These are parts of one system with separate responsibilities. The desktop PET and 3D office are views and control surfaces; neither owns company state.
 
 ## Architectural rules
 
@@ -27,19 +28,20 @@ These are parts of one system with separate responsibilities. The 3D office is a
 - **IAM is external.** Authentication and credential lifecycle belong to an identity provider, not the domain model.
 - **Actor/Employee identity persists.** Agent Runtime is dynamic execution state and may start, stop, or be replaced without changing the employee.
 - **The CEO PET is an AI Employee with Position=CEO.** PET/avatar presentation is not the identity record.
-- **The 3D office is a projection.** It displays company state and activity; it is not the source of truth.
+- **The 3D office and desktop companion are projections and clients.** They display and control company workflows through Office APIs; they are not the source of truth.
 
 ## Implementation plan
 
 1. **Establish the foundation:** create a clean Rust workspace, infrastructure-independent domain types, and the Office Service boundary.
 2. **Make company state durable:** define PostgreSQL schemas and migrations, then implement repositories and Office use cases against them.
 3. **Add the service contract:** grow the HTTP API around Office use cases and integrate external IAM at the boundary.
-4. **Support agent work:** introduce actor lifecycle, dynamic Agent Runtime, policy, tools, memory, and event-bus capabilities as concrete use cases need them.
-5. **Add graph context:** use Apache AGE for relationship and context queries while keeping authoritative records in PostgreSQL.
-6. **Build interaction surfaces:** add edge clients and avatar/3D views that consume Office APIs and project company state.
-7. **Validate end-to-end:** add integration and system tests around durable state, permissions, task execution, and user-visible workflows.
+4. **Build the desktop companion and Office UI:** use Tauri for the desktop shell, PET companion, and user-facing Office panels. Keep the UI connected to Office APIs rather than embedding company truth in the client.
+5. **Prototype the immersive 3D office:** evaluate a dedicated 3D engine, starting with a representative scene containing a room, several employees, and basic movement/idle animation. Unity is the current candidate for the Sims/AgentOffice smoothness target; keep the renderer decision open until the prototype is profiled on target hardware.
+6. **Support agent work:** introduce actor lifecycle, dynamic Agent Runtime, policy, tools, memory, and event-bus capabilities as concrete use cases require them.
+7. **Add graph context:** use Apache AGE for relationship and context queries while keeping authoritative records in PostgreSQL.
+8. **Validate end-to-end:** add integration and system tests around durable state, permissions, task execution, desktop workflows, and 3D projections.
 
-The sequence is intentional: establish the source of truth and service boundary before adding execution and presentation layers. The workspace areas below mark the intended direction; a reserved directory does not imply that its subsystem is already implemented.
+The sequence is intentional: establish the source of truth and service boundary, then add usable interfaces and execution capabilities. The 3D office is an explicit visual-quality goal, but its engine and final architecture should be validated with a realistic prototype before full production investment. Reserved directories mark intended direction; they do not imply implementation is complete.
 
 ## Current status
 
@@ -50,7 +52,7 @@ The initial implementation is the first foundation milestone:
 - `crates/office-api` provides a minimal HTTP health endpoint.
 - Planned crates and top-level areas are reserved for later work.
 
-PostgreSQL persistence, migrations, Apache AGE, external IAM, agent execution, and client/3D integrations are **not implemented yet**.
+PostgreSQL persistence, migrations, Apache AGE, external IAM, agent execution, Tauri desktop app, PET assets, and the 3D office are **not implemented yet**.
 
 ## Planned workspace
 
