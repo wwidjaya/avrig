@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/domain",
+    "crates/office-core",
+    "crates/office-api",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+version = "0.1.0"
