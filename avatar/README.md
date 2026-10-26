@@ -2,12 +2,16 @@
 
 This area contains the PET avatar options and the plan for building the avatar system first.
 
-- [20 PET avatar options](AVATAR_OPTIONS.md) lists the proposed visual identities.
+- [22 PET avatar options](AVATAR_OPTIONS.md) lists the proposed visual identities.
 - [Avatar Visual Design Brief](DESIGN_BRIEF.md) records the selected collection direction and individual character-form cues.
 - [Avatar Development Plan](DEVELOPMENT_PLAN.md) sequences design approval, the all-20 first-release catalogue, the presentation runtime, and later desktop integration.
 - [Avatar State Model](STATE_MODEL.md) defines connection/activity states, adapted outfit rules, transitions, accessibility, safe fallbacks, and verification cases.
 
-The collection direction is playful, expressive stylized 3D chibi characters with distinct silhouettes and bright individual palettes. Bulb is the initial default; users can change it later. Avatars are presentation projections and do not own Employee identity, permissions, or agent execution. Office UI, agent behavior, and the 3D office are later integrations.
+The collection uses polished, expressive stylized 3D characters with distinct silhouettes, bright individual palettes, and an office-casual look: a minimal T-shirt and jeans, with a casual jacket and shared chest badge when connected. Bulb is the initial default; users can change it later. Avatars are presentation projections and do not own Employee identity, permissions, or agent execution. Office UI, agent behavior, and the 3D office are later integrations.
+
+## Additional human worker options
+
+The catalogue now includes two human office-worker concepts alongside the original 20: Alex and Maya. Both use the same minimal T-shirt-and-jeans base outfit and casual jacket with shared chest badge when connected.
 
 ## Concept sheet
 
