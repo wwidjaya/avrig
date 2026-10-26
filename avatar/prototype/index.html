@@ -78,7 +78,7 @@ for(const [x,y,s] of [[-.62,2.02,.045],[-.77,1.72,.025],[.64,2.12,.035]])sphere(
 // A compact brass socket joins the lamp head to the shirt.
 mesh(new THREE.CylinderGeometry(.19,.23,.13,40),brass,body,[0,.64,0]);
 mesh(new THREE.CylinderGeometry(.15,.19,.12,40),brass,body,[0,.53,0]);
-mesh(new THREE.CylinderGeometry(.14,.15,.08,40),brass,body,[0,.43,0]);
+mesh(new THREE.CylinderGeometry(.14,.15,.08,40),brass,body,[0,.43,0]);\nmesh(new THREE.CylinderGeometry(.12,.12,.40,32),brass,body,[0,.22,0]);
 // Soft human-shaped tee, with a slight shoulder taper and visible collar.
 const shirtPoints=[[0,.13],[.34,.13],[.50,.02],[.39,-.14],[.35,-.64],[.25,-.79],[0,-.81]].map(([r,y])=>new THREE.Vector2(r,y));
 const torso=mesh(new THREE.LatheGeometry(shirtPoints,40),shirtMat,body);
@@ -88,13 +88,13 @@ for(const side of [-1,1]){
  const leg=mesh(new THREE.CapsuleGeometry(.17,.57,8,20),jeansMat,body,[side*.18,-1.25,0]);leg.rotation.z=side*.035;
  // Jeans cuffs and visible double-stitch lines
  mesh(new THREE.TorusGeometry(.17,.012,6,28),denimSeam,body,[side*.18,-1.54,0]);
- const pocket=mesh(new THREE.BoxGeometry(.13,.11,.018),denimSeam,body,[side*.18,-.83,.3]);pocket.position.x=side*.18;
+ 
  // Chunky off-white sneaker with a separate rubber sole
  sphere(body,shoeMat,[side*.19,-1.72,.06],[.23,.15,.34],32);
- mesh(new THREE.BoxGeometry(.43,.065,.52),soleMat,body,[side*.19,-1.82,.08]);
+ sphere(body,soleMat,[side*.19,-1.81,.08],[.23,.075,.34],32);
 }
 // Front-facing features sit close to the head surface, like the model sheet's embedded glossy eyes.
-const face=new THREE.Group();face.position.set(0,0,.805);head.add(face);
+const face=new THREE.Group();face.position.set(0,0,.92);head.add(face);
 const liner=mat(0x4a2515,.32), eyeMat=mat(0x130d0b,.15), shine=new THREE.MeshBasicMaterial({color:0xfff8e9});
 const eyes=[];
 for(const x of [-.32,.32]){
@@ -111,7 +111,7 @@ for(const x of [-.55,.55])sphere(face,mat(0xffb77d,.5,0,{emissive:0xff8a52,emiss
 // Hands-on-hips pose, with short sleeves, bent forearms, and warm golden hands.
 function capsuleBetween(parent,a,b,r,material){const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),d=B.clone().sub(A),m=mesh(new THREE.CapsuleGeometry(r,Math.max(.01,d.length()-2*r),8,20),material,parent,A.clone().add(B).multiplyScalar(.5).toArray());m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());return m}
 for(const side of [-1,1]){
- capsuleBetween(body,[side*.31,.02,0],[side*.56,-.22,.02],.16,shirtMat);
+ capsuleBetween(body,[side*.40,.02,0],[side*.60,-.22,.02],.13,shirtMat);
  capsuleBetween(body,[side*.56,-.22,.02],[side*.48,-.48,.24],.105,skinMat);
  sphere(body,skinMat,[side*.48,-.55,.27],[.135,.13,.13]);
 }
@@ -123,7 +123,7 @@ const panelGeo=new THREE.ExtrudeGeometry(leftShape,{depth:.08,bevelEnabled:true,
 mesh(panelGeo,jacketMat,jacket);const panel2=new THREE.ExtrudeGeometry(rightShape,{depth:.08,bevelEnabled:true,bevelSegments:2,steps:1,bevelSize:.025,bevelThickness:.025});panel2.translate(0,0,.32);mesh(panel2,jacketMat,jacket);
 const zipMat=mat(0xc7d6e5,.3,.5);mesh(new THREE.BoxGeometry(.018,.55,.025),zipMat,jacket,[0,-.34,.42]);
 for(const side of [-1,1]){
- capsuleBetween(jacket,[side*.32,.01,0],[side*.56,-.23,.02],.165,jacketMat);
+ capsuleBetween(jacket,[side*.40,.01,0],[side*.60,-.23,.02],.14,jacketMat);
  capsuleBetween(jacket,[side*.56,-.23,.02],[side*.48,-.48,.24],.11,jacketMat);
  sphere(jacket,skinMat,[side*.48,-.55,.27],[.135,.13,.13]);
 }
