@@ -109,7 +109,7 @@ for(const x of [-.32,.32]){
 }
 const mouthCurve=new THREE.CatmullRomCurve3([new THREE.Vector3(-.105,1.26,.06),new THREE.Vector3(-.06,1.22,.08),new THREE.Vector3(0,1.21,.085),new THREE.Vector3(.06,1.22,.08),new THREE.Vector3(.105,1.26,.06)]);
 mesh(new THREE.TubeGeometry(mouthCurve,24,.018,8,false),mat(0x81451c),face);
-for(const x of [-.55,.55])sphere(face,mat(0xffb77d,.5,{emissive:0xff8a52,emissiveIntensity:.08}),[x,1.35,.005],[.095,.045,.018]);
+for(const x of [-.55,.55])sphere(face,mat(0xffb77d,.5,0,{emissive:0xff8a52,emissiveIntensity:.08}),[x,1.35,.005],[.095,.045,.018]);
 // Hands-on-hips pose, with short sleeves, bent forearms, and warm golden hands.
 function capsuleBetween(parent,a,b,r,material){const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),d=B.clone().sub(A),m=mesh(new THREE.CapsuleGeometry(r,Math.max(.01,d.length()-2*r),8,20),material,parent,A.clone().add(B).multiplyScalar(.5).toArray());m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());return m}
 for(const side of [-1,1]){
