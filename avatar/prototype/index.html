@@ -80,7 +80,7 @@ for(const x of [-.34,.34]){
  make(sphere,mat(0xffffff,.1),root,[x-.04,2.41,.78],[.052,.065,.025]);
 }
 const mouth=make(new THREE.TorusGeometry(.12,.025,8,24,Math.PI),mat(0x74320f,.4),root,[0,2.02,.69],[1,.62,1]);
-mouth.rotation.z=Math.PI;
+mouth.scale.y=-.62;
 const filament=mat(0xfff2a0,.35,0,0xffdc50,.5);
 make(new THREE.TorusGeometry(.21,.025,8,32,Math.PI),filament,root,[0,2.68,.66],[1,1,.6]).rotation.z=Math.PI;
 make(new THREE.CylinderGeometry(.025,.025,.26,10),filament,root,[0,2.78,.66]);
