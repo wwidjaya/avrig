@@ -19,7 +19,11 @@ The catalogue now includes two human office-worker concepts alongside the origin
 
 ## Interactive Bulb prototype
 
-[Open the Bulb 3D prototype](prototype/index.html) in a modern browser with internet access. It demonstrates the T-shirt-and-jeans base look, connected jacket and badge, and independent message/alert tablet state. This is an early concept-matched visual preview, not production artwork.
+[Open the Bulb 3D prototype](prototype/index.html) in a modern browser with internet access. It demonstrates the T-shirt-and-jeans base look, connected jacket and badge, and independent message/alert tablet state. This is a rough interaction mockup only; its procedural character is not concept-accurate and is not the visual model-review path.
+
+## Bevy model review viewer
+
+The native [Bevy viewer](viewer/README.md) loads a reviewed, rigged Bulb GLB, plays the first exported animation as the idle loop, and provides orbit, zoom, reset, and auto-rotate controls. It deliberately shows no stand-in character while the production model is unavailable. The GLB still needs to be created from the approved model sheet.
 
 ## Bulb model sheet
 
