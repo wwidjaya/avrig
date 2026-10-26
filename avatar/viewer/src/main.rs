@@ -190,14 +190,12 @@ fn orbit_camera(
             orbit.auto_rotate = !orbit.auto_rotate;
         }
 
-        if buttons.pressed(MouseButton::Left) {
-            for motion in mouse_motion.read() {
+        for motion in mouse_motion.read() {
+            if buttons.pressed(MouseButton::Left) {
                 orbit.yaw -= motion.delta.x * 0.008;
                 orbit.pitch = (orbit.pitch + motion.delta.y * 0.006).clamp(-1.15, 1.15);
                 orbit.auto_rotate = false;
             }
-        } else {
-            mouse_motion.clear();
         }
 
         for wheel in mouse_wheel.read() {
