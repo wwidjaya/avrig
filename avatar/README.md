@@ -1,6 +1,6 @@
 # Avatar
 
-This area contains the PET avatar options and the plan for building the avatar system first.
+This area contains the PET avatar options and the plan for building the avatar system first. Message/alert is a supported presentation state; the PET may carry a tablet when showing it.
 
 - [22 PET avatar options](AVATAR_OPTIONS.md) lists the proposed visual identities.
 - [Avatar Visual Design Brief](DESIGN_BRIEF.md) records the selected collection direction and individual character-form cues.
@@ -15,6 +15,6 @@ The catalogue now includes two human office-worker concepts alongside the origin
 
 ## Concept sheet
 
-The contact sheet is low-fidelity visual exploration for collection review, not approved production artwork. The connected-state insets show the adapted outer layer and shared chest badge.
+The contact sheet is low-fidelity visual exploration for collection review, not approved production artwork. The connected-state insets show the casual jacket and shared chest badge. The full sheet is still being updated for the two human concepts and tablet prop.
 
-![Twenty stylized 3D PET avatar concept options](assets/concepts/avatar-contact-sheet-v1.png)
+![Twenty-two stylized 3D PET avatar concept options](assets/concepts/avatar-contact-sheet-v1.png)
