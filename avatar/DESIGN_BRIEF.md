@@ -30,6 +30,8 @@ Each avatar’s character form directly reflects its name and concept. The visua
 | AV-18 | Comet | Adventurous character with a comet-tail silhouette |
 | AV-19 | Ivy | Resourceful growing character with vine or leaf forms |
 | AV-20 | Neo | Modern generalist with a clean geometric silhouette |
+| AV-21 | Alex | Professional male office worker with a friendly human chibi silhouette and restrained office-casual details |
+| AV-22 | Maya | Professional female office worker with a friendly human chibi silhouette and restrained office-casual details |
 
 ## Outfit and connection state
 
