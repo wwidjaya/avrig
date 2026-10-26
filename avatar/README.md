@@ -19,7 +19,7 @@ The catalogue now includes two human office-worker concepts alongside the origin
 
 ## Bulb model sheet
 
-[Bulb character model sheet](assets/concepts/bulb-model-sheet-v1.png) shows base outfit front/side/back views, connected and message/alert looks, facial expressions, and key material details. It is visual exploration for review, not production art.
+**Approved as the visual reference direction.** [Bulb character model sheet](assets/concepts/bulb-model-sheet-v1.png) shows base outfit front/side/back views, connected and message/alert looks, facial expressions, and key material details. Approval applies to the visual direction; this remains concept artwork, not production art.
 
 ## Concept sheet
 
