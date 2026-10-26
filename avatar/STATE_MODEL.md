@@ -29,9 +29,10 @@ Only a current, affirmatively confirmed connected state may show the jacket and 
 | thinking | Short, low-motion thinking cue | thinking |
 | working | Focused pose or small bounded cue | working |
 | waiting_for_user | Neutral expectant pose | waiting for you |
+| message_alert | Present a message/alert with a compact tablet prop and a clear, non-alarming cue | new message or alert |
 | error | Clear, non-alarming cue | needs attention |
 
-Activity changes never change connection clothing. A connected PET that is thinking has the connected jacket and chest badge; a disconnected PET that is thinking stays in its character-appropriate base outfit. Use the same simple activity-motion language across the collection.
+Activity changes never change connection clothing. A connected PET that is thinking has the connected jacket and chest badge; a disconnected PET that is thinking stays in its character-appropriate base outfit. The message/alert tablet may appear in either connection state. Use the same simple activity-motion language across the collection. Message/alert may show the PET holding a compact tablet; the tablet is not a connection cue, and message contents must not be exposed in artwork.
 
 ### Motion preference
 
@@ -56,7 +57,7 @@ Expected connection flow:
 - connected to connection_lost: client applies a configurable grace period for transient disruptions; when loss is confirmed, remove the connected jacket and show loss.
 - connection_lost to connecting: retain base outfit and show reconnecting.
 - Any state to unknown or stale: remove the connected jacket and badge unless connected is affirmatively current.
-- Activity transitions do not change connection state or outfit.
+- Activity transitions do not change connection state or jacket/badge. Message/alert may add or remove the tablet prop.
 - State text updates immediately and must not wait for an animation to finish.
 - Transitions are interruptible and respect reduced/static motion modes.
 
@@ -68,7 +69,8 @@ Input to the presentation runtime:
 
 - Stable avatar ID and asset version/manifest.
 - Connection state, freshness indicator, and update sequence or timestamp.
-- Activity state.
+- Activity state, including message/alert presentation.
+- A validated, privacy-safe notification summary or presence flag when message/alert is shown; do not pass message content to the avatar renderer.
 - Surface size, theme, locale, and motion preference.
 - Optional visibility/active-surface hint.
 
@@ -85,6 +87,7 @@ Do not include credentials, private prompts, task contents, or sensitive Office 
 
 - Missing, unknown, or stale connection data resolves to the character-appropriate base outfit with an unknown/disconnected label.
 - Unknown activity resolves to a neutral pose and generic label; do not invent an activity.
+- Message/alert presentation must not reveal message text, sender identity, or sensitive content in avatar artwork.
 - Unknown or retired avatar ID resolves to an approved default if one exists, otherwise a neutral fallback. Preserve the stored ID so the preference can be recovered.
 - Missing, corrupt, or incompatible artwork falls back to a bundled neutral asset and retains the correct text state.
 - Reject invalid state values to a safe fallback and record a diagnostic.
@@ -93,6 +96,7 @@ Do not include credentials, private prompts, task contents, or sensitive Office 
 ## Accessibility requirements
 
 - Every connection/activity combination has an accurate text equivalent, for example “PET connected, thinking.”
+- Message/alert has a clear accessible label; the tablet itself is not the sole signal, and the artwork does not expose message contents.
 - State is not conveyed by color or motion alone.
 - The jacket and shared chest badge remain distinguishable at target sizes; the text label remains available if they do not.
 - Respect reduced-motion settings and provide a static mode.
@@ -128,7 +132,7 @@ For every released avatar, verify:
 
 - All connection states map to the specified outfit and label.
 - Only current connected state shows the connected jacket and badge.
-- Every activity works independently of connection outfit.
+- Every activity works independently of connection outfit; message/alert may show the tablet in connected and disconnected states.
 - Unknown, stale, invalid, out-of-order, and missing inputs fall back safely.
 - Reduced-motion and static modes preserve semantic meaning.
 - State text is available without color or animation.
