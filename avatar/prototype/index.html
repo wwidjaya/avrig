@@ -111,7 +111,7 @@ document.querySelectorAll("[data-connection]").forEach(b=>b.onclick=()=>{connect
 document.querySelectorAll("[data-activity]").forEach(b=>b.onclick=()=>{activity=b.dataset.activity;tablet.visible=activity==="message";sync()});
 function sync(){status.textContent="Bulb "+(activity==="idle"?"idle":"showing a message or alert")+", "+connection;document.querySelectorAll("[data-connection]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.connection===connection)));document.querySelectorAll("[data-activity]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.activity===activity)))}
 const clock=new THREE.Clock();let blink=0,nextBlink=2.3;
-function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime(),dt=clock.getDelta();body.position.y=Math.sin(t*1.6)*.045;torso.scale.y=.98+Math.sin(t*1.6)*.025;if(autoRotate&&!down)theta+=dt*.35;
+function animate(){requestAnimationFrame(animate);const dt=clock.getDelta(),t=clock.elapsedTime;body.position.y=Math.sin(t*1.6)*.045;torso.scale.y=.98+Math.sin(t*1.6)*.025;if(autoRotate&&!down)theta+=dt*.35;
  if(t>nextBlink&&blink===0)blink=.001;
  if(blink>0){blink+=dt;const k=blink<.12?1-blink/.12:blink<.22?(blink-.12)/.1:1;for(const eye of eyes)eye.scale.y=.245*Math.max(.08,k);if(blink>.22){blink=0;for(const eye of eyes)eye.scale.y=.245;nextBlink=t+2.5+Math.random()*2.5}}
  updateCamera();renderer.render(scene,camera)}
