@@ -45,7 +45,7 @@ Keep the first implementation in this repository. Do not split it into a Git sub
 4. Confirm distinct silhouettes and bright individual palettes within the cohesive playful chibi style.
 5. Review the adapted T-shirt-and-jeans base outfit, connected casual jacket, shared chest badge, and status readability.
 
-**Gate:** Approve Bulb as the reference model and approve a form sheet for all 22 concepts, showing distinct silhouettes within one cohesive collection.
+**Gate:** Bulb’s visual reference direction is approved. Remaining: approve a form sheet for the other 21 concepts, showing distinct silhouettes within one cohesive collection.
 
 ### Phase 2 — Define the avatar contract
 
