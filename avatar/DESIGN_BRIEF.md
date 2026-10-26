@@ -59,7 +59,7 @@ All 20 avatars should be available in the first catalogue release. Bulb is the i
 
 ## Full catalogue design exploration
 
-[The 22-avatar design sheet](assets/concepts/avatar-contact-sheet-v3.png) applies the Bulb reference style across the full collection. Each concept is shown in base T-shirt-and-jeans, connected jacket-and-badge, and tablet-carrying message/alert poses. This is low-fidelity visual exploration for review, not production artwork.
+[The 22-avatar design sheet](assets/concepts/avatar-contact-sheet-v4.png) applies the Bulb reference style across the full collection. Each concept is shown in base T-shirt-and-jeans, connected jacket-and-badge, and tablet-carrying message/alert poses. All connected poses, including tablet poses, use the dark jacket and badge; Comet is shown in all three states. This is low-fidelity visual exploration for review, not production artwork.
 
 ## Bulb reference design draft
 

@@ -19,6 +19,6 @@ The catalogue now includes two human office-worker concepts alongside the origin
 
 ## Concept sheet
 
-The contact sheet is low-fidelity visual exploration for collection review, not approved production artwork. It shows all 22 current concepts in base, connected, and message/alert poses. Connected and tablet-carrying poses use the dark casual jacket and shared chest badge.
+The contact sheet is low-fidelity visual exploration for collection review, not approved production artwork. It shows all 22 current concepts in base, connected, and message/alert poses. Every connected pose, including tablet-carrying message/alert poses, shows the dark casual jacket and shared chest badge. Comet includes all three states.
 
-![Twenty-two stylized 3D PET avatar concept options](assets/concepts/avatar-contact-sheet-v3.png)
+![Twenty-two stylized 3D PET avatar concept options](assets/concepts/avatar-contact-sheet-v4.png)
