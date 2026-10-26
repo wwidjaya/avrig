@@ -66,13 +66,13 @@ const brass=mat(0xd49339,.3,.55), jacketMat=mat(0x173d76,.43,.04,{clearcoat:.4})
 const head=new THREE.Group();body.add(head);
 // Bulb-shaped glass shell, with a rounded crown and a narrow neck instead of a screw-base silhouette.
 const profile=[[0,2.43],[.24,2.42],[.48,2.34],[.70,2.18],[.86,1.94],[.94,1.66],[.94,1.39],[.87,1.13],[.72,.92],[.49,.80],[.27,.75],[.16,.69],[0,.67]].map(([r,y])=>new THREE.Vector2(r,y));
-const shellMat=new THREE.MeshPhysicalMaterial({color:0xffbd42,roughness:.2,metalness:.02,transparent:true,opacity:.48,transmission:.22,thickness:.45,clearcoat:1,clearcoatRoughness:.1,emissive:0xff9b16,emissiveIntensity:.42,side:THREE.DoubleSide});
+const shellMat=new THREE.MeshPhysicalMaterial({color:0xffbd42,roughness:.2,metalness:.02,transparent:false,opacity:1,transmission:0,thickness:.2,clearcoat:1,clearcoatRoughness:.08,emissive:0xff8a0a,emissiveIntensity:.62,side:THREE.DoubleSide});
 mesh(new THREE.LatheGeometry(profile,64),shellMat,head);
-const glow=sphere(head,new THREE.MeshBasicMaterial({color:0xffc650,transparent:true,opacity:.24}),[0,1.56,0],[.78,.77,.67],48);
+const glow=sphere(head,new THREE.MeshBasicMaterial({color:0xffd26b,transparent:true,opacity:.2}),[0,1.56,0],[.78,.77,.67],48);
 // Curved glowing filament visible through the shell from front and back.
-const filamentShape=new THREE.Shape();filamentShape.moveTo(0,1.18);filamentShape.bezierCurveTo(-.12,1.34,-.34,1.45,-.29,1.64);filamentShape.bezierCurveTo(-.26,1.84,-.07,1.91,0,1.72);filamentShape.bezierCurveTo(.07,1.91,.26,1.84,.29,1.64);filamentShape.bezierCurveTo(.34,1.45,.12,1.34,0,1.18);
-const filament=mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(filamentShape.getPoints(48).map(p=>new THREE.Vector3(p.x,p.y,.02))),96,.018,8,false),filamentMat,head);
-const filamentStem=mesh(new THREE.CylinderGeometry(.014,.014,.54,12),filamentMat,head,[0,1.02,.02]);
+const filamentShape=new THREE.Shape();filamentShape.moveTo(0,1.90);filamentShape.bezierCurveTo(-.08,1.98,-.23,2.02,-.20,2.13);filamentShape.bezierCurveTo(-.17,2.24,-.05,2.28,0,2.19);filamentShape.bezierCurveTo(.05,2.28,.17,2.24,.20,2.13);filamentShape.bezierCurveTo(.23,2.02,.08,1.98,0,1.90);
+const filament=mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(filamentShape.getPoints(48).map(p=>new THREE.Vector3(p.x,p.y,.73))),96,.018,8,false),filamentMat,head);
+
 // Glossy shell glints, carefully placed as small warm highlights.
 for(const [x,y,s] of [[-.62,2.02,.045],[-.77,1.72,.025],[.64,2.12,.035]])sphere(head,new THREE.MeshBasicMaterial({color:0xfff0bc,transparent:true,opacity:.78}),[x,y,.57],[s,s*1.7,.012],16);
 // A compact brass socket joins the lamp head to the shirt.
@@ -80,9 +80,9 @@ mesh(new THREE.CylinderGeometry(.19,.23,.13,40),brass,body,[0,.64,0]);
 mesh(new THREE.CylinderGeometry(.15,.19,.12,40),brass,body,[0,.53,0]);
 mesh(new THREE.CylinderGeometry(.14,.15,.08,40),brass,body,[0,.43,0]);
 // Soft human-shaped tee, with a slight shoulder taper and visible collar.
-const shirtPoints=[[0,.13],[.29,.13],[.42,.02],[.36,-.14],[.32,-.64],[.25,-.79],[0,-.81]].map(([r,y])=>new THREE.Vector2(r,y));
+const shirtPoints=[[0,.13],[.34,.13],[.50,.02],[.39,-.14],[.35,-.64],[.25,-.79],[0,-.81]].map(([r,y])=>new THREE.Vector2(r,y));
 const torso=mesh(new THREE.LatheGeometry(shirtPoints,40),shirtMat,body);
-mesh(new THREE.TorusGeometry(.17,.035,10,32),mat(0xd9d6ce),body,[0,.105,.015]);
+
 const pantsTop=mesh(new THREE.CylinderGeometry(.31,.3,.29,32),jeansMat,body,[0,-.83,0]);
 for(const side of [-1,1]){
  const leg=mesh(new THREE.CapsuleGeometry(.17,.57,8,20),jeansMat,body,[side*.18,-1.25,0]);leg.rotation.z=side*.035;
@@ -95,17 +95,15 @@ for(const side of [-1,1]){
 }
 // Front-facing features sit close to the head surface, like the model sheet's embedded glossy eyes.
 const face=new THREE.Group();face.position.set(0,0,.805);head.add(face);
-const liner=mat(0x4a2515,.25), eyeMat=mat(0x160f0e,.12), iris=mat(0x3d1d10,.18), shine=new THREE.MeshBasicMaterial({color:0xfff8e9});
+const liner=mat(0x4a2515,.32), eyeMat=mat(0x130d0b,.15), shine=new THREE.MeshBasicMaterial({color:0xfff8e9});
 const eyes=[];
 for(const x of [-.32,.32]){
- sphere(face,liner,[x,1.53,.005],[.205,.275,.055],40);
- const eye=sphere(face,eyeMat,[x,1.54,.035],[.174,.238,.07],40);eyes.push(eye);
- sphere(face,iris,[x+.012,1.53,.084],[.12,.17,.028],32);
- sphere(face,eyeMat,[x+.012,1.53,.105],[.084,.13,.025],32);
- sphere(face,shine,[x-.045,1.63,.13],[.047,.058,.018],20);
- sphere(face,shine,[x+.055,1.49,.13],[.018,.024,.012],16);
- // Small curved brows echo the expression range in the approved sheet.
- const brow=mesh(new THREE.TorusGeometry(.12,.018,8,24,Math.PI),mat(0x8c4e1d),face,[x,1.85,.015]);brow.rotation.z=x<0?Math.PI:0;
+ const eye=sphere(face,liner,[x,1.53,.005],[.184,.252,.025],40);eyes.push(eye);
+ sphere(face,eyeMat,[x,1.54,.023],[.158,.224,.024],40);
+ sphere(face,shine,[x-.045,1.63,.044],[.045,.055,.012],20);
+ sphere(face,shine,[x+.052,1.49,.045],[.016,.021,.009],16);
+ const browCurve=new THREE.CatmullRomCurve3([new THREE.Vector3(x-.10,1.83,.025),new THREE.Vector3(x,1.87,.03),new THREE.Vector3(x+.10,1.83,.025)]);
+ mesh(new THREE.TubeGeometry(browCurve,16,.014,8,false),mat(0x934c1b),face);
 }
 const mouthCurve=new THREE.CatmullRomCurve3([new THREE.Vector3(-.105,1.26,.06),new THREE.Vector3(-.06,1.22,.08),new THREE.Vector3(0,1.21,.085),new THREE.Vector3(.06,1.22,.08),new THREE.Vector3(.105,1.26,.06)]);
 mesh(new THREE.TubeGeometry(mouthCurve,24,.018,8,false),mat(0x81451c),face);
@@ -138,15 +136,15 @@ mesh(new THREE.BoxGeometry(.47,.34,.045),mat(0x202a35,.25,.25),tablet,[.40,-.58,
 mesh(new THREE.BoxGeometry(.405,.27,.012),mat(0x83c8f0,.18),tablet,[.40,-.58,.329],[0,0,-.18]);
 tablet.visible=false;jacket.visible=false;
 let connection="disconnected",activity="idle",autoRotate=false,down=false,lastX=0,lastY=0,dragged=false;
-let theta=.18,phi=.08,distance=8.1;
-function updateCamera(){phi=Math.max(-.32,Math.min(.55,phi));camera.position.set(distance*Math.sin(theta)*Math.cos(phi),1.3+distance*Math.sin(phi),distance*Math.cos(theta)*Math.cos(phi));camera.lookAt(0,.15,0)}
+let theta=.18,phi=.08,distance=9.5;
+function updateCamera(){phi=Math.max(-.32,Math.min(.55,phi));camera.position.set(distance*Math.sin(theta)*Math.cos(phi),.25+distance*Math.sin(phi),distance*Math.cos(theta)*Math.cos(phi));camera.lookAt(0,.25,0)}
 function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
 new ResizeObserver(resize).observe(stage);resize();
 renderer.domElement.addEventListener("pointerdown",e=>{down=true;dragged=false;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
 renderer.domElement.addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;if(Math.abs(dx)+Math.abs(dy)>2)dragged=true;theta-=dx*.008;phi+=dy*.006;lastX=e.clientX;lastY=e.clientY;updateCamera()});
 renderer.domElement.addEventListener("pointerup",()=>{down=false});
 renderer.domElement.addEventListener("wheel",e=>{distance=Math.max(5,Math.min(12,distance+e.deltaY*.008));updateCamera()},{passive:true});
-document.querySelector("#reset-view").onclick=()=>{theta=.18;phi=.08;distance=8.1;updateCamera()};
+document.querySelector("#reset-view").onclick=()=>{theta=.18;phi=.08;distance=9.5;updateCamera()};
 document.querySelector("#spin-toggle").onclick=e=>{autoRotate=!autoRotate;e.currentTarget.setAttribute("aria-pressed",String(autoRotate));e.currentTarget.textContent="Auto rotate: "+(autoRotate?"on":"off")};
 document.querySelectorAll("[data-connection]").forEach(b=>b.onclick=()=>{connection=b.dataset.connection;jacket.visible=connection==="connected";sync()});
 document.querySelectorAll("[data-activity]").forEach(b=>b.onclick=()=>{activity=b.dataset.activity;tablet.visible=activity==="message";sync()});
@@ -154,7 +152,7 @@ function sync(){status.textContent="Bulb "+(activity==="idle"?"idle":"showing a 
 const clock=new THREE.Clock();let blink=0,nextBlink=2.3;
 function animate(){requestAnimationFrame(animate);const dt=clock.getDelta(),t=clock.elapsedTime;body.position.y=Math.sin(t*1.6)*.045;torso.scale.y=.98+Math.sin(t*1.6)*.025;if(autoRotate&&!down)theta+=dt*.35;
  if(t>nextBlink&&blink===0)blink=.001;
- if(blink>0){blink+=dt;const k=blink<.12?1-blink/.12:blink<.22?(blink-.12)/.1:1;for(const eye of eyes)eye.scale.y=.245*Math.max(.08,k);if(blink>.22){blink=0;for(const eye of eyes)eye.scale.y=.245;nextBlink=t+2.5+Math.random()*2.5}}
+ if(blink>0){blink+=dt;const k=blink<.12?1-blink/.12:blink<.22?(blink-.12)/.1:1;for(const eye of eyes)eye.scale.y=.238*Math.max(.08,k);if(blink>.22){blink=0;for(const eye of eyes)eye.scale.y=.238;nextBlink=t+2.5+Math.random()*2.5}}
  updateCamera();renderer.render(scene,camera)}
 updateCamera();sync();animate();
 </script>
