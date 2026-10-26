@@ -2,7 +2,7 @@
 
 **Status:** Proposed options for human review. Names and visual directions are working concepts, not finalized character designs.
 
-These 20 options are candidate visual identities for the avrig-ai PET. Each keeps the same character identity across connection states: when not connected, the PET wears a T-shirt and jeans; when connected, it wears the same outfit with an additional jacket. The jacket communicates connection only; it does not imply authority or role.
+These 22 options are candidate visual identities for the avrig-ai PET. Each keeps the same character identity across connection states: when not connected, the PET wears a T-shirt and jeans; when connected, it wears the same outfit with an additional jacket. The jacket communicates connection only; it does not imply authority or role.
 
 | ID | Name | Visual direction | Distinguishing motif |
 |---|---|---|---|
@@ -26,6 +26,8 @@ These 20 options are candidate visual identities for the avrig-ai PET. Each keep
 | AV-18 | Comet | Quick, adventurous helper | Comet-tail accent |
 | AV-19 | Ivy | Resourceful, growing companion | Vine or leaf detail |
 | AV-20 | Neo | Modern, adaptable generalist | Clean geometric accent |
+| AV-21 | Alex | Professional male office worker | Friendly human chibi in a minimal T-shirt and jeans; connected state adds the shared casual jacket and chest badge |
+| AV-22 | Maya | Professional female office worker | Friendly human chibi in a minimal T-shirt and jeans; connected state adds the shared casual jacket and chest badge |
 
 ## Shared design rules
 
