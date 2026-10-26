@@ -69,7 +69,7 @@ Create source and optimized runtime assets for Bulb first, then produce all 21 o
 - A small initial set of poses for idle, listening, thinking, and working, using the shared motion language.
 - Metadata for dimensions, supported states, version, source, author, and license.
 
-Build a stylized 3D Bulb prototype first to validate silhouette, state readability, the badge, and rendering performance. A concept-matched sprite-based preview is available at [avatar/prototype](prototype/index.html). It displays approved artwork in a state selector while the production-ready rigged 3D asset is developed. Reuse animation rigs where forms allow, with tailored compatible rigs where distinct silhouettes require them. Keep avatar IDs and semantic states independent from rig details.
+Build a stylized 3D Bulb prototype first to validate silhouette, state readability, the badge, and rendering performance. An interactive procedural 3D prototype is available at [avatar/prototype](prototype/index.html), with idle breathing and blinking, drag-to-rotate and zoom controls, optional auto-rotation, connected outfit state, and message/alert tablet state. It is guided by the approved concept art and is not production artwork or a final rigged model. Reuse animation rigs where forms allow, with tailored compatible rigs where distinct silhouettes require them. Keep avatar IDs and semantic states independent from rig details.
 
 **Gate:** All 22 avatars have reviewed base and connected variants, required initial poses, readable status cues, and complete version/provenance/license metadata before the first catalogue release.
 
