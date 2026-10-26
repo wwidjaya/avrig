@@ -1,0 +1,9 @@
+[package]
+name = "avrig-avatar-viewer"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "A focused Bevy viewer for the avrig-ai PET avatar GLB"
+
+[dependencies]
+bevy = "0.20"
