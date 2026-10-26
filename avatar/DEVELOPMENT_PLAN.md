@@ -69,7 +69,7 @@ Create source and optimized runtime assets for Bulb first, then produce all 21 o
 - A small initial set of poses for idle, listening, thinking, and working, using the shared motion language.
 - Metadata for dimensions, supported states, version, source, author, and license.
 
-Build a stylized 3D Bulb prototype first to validate silhouette, state readability, the badge, and rendering performance. An interactive procedural 3D prototype is available at [avatar/prototype](prototype/index.html), with idle breathing and blinking, drag-to-rotate and zoom controls, optional auto-rotation, connected outfit state, and message/alert tablet state. It is guided by the approved concept art and is not production artwork or a final rigged model. Reuse animation rigs where forms allow, with tailored compatible rigs where distinct silhouettes require them. Keep avatar IDs and semantic states independent from rig details.
+Create the Bulb as a real rigged 3D asset from the approved model sheet, then review that asset in the native [Bevy model viewer](viewer/README.md). The viewer loads a GLB, plays its first exported animation as idle, and supports orbit, zoom, reset, and optional auto-rotation. It intentionally renders no procedural character substitute. The older [web interaction mockup](prototype/index.html) demonstrates state controls only; its character rendering is not concept-accurate. Reuse animation rigs where forms allow, with tailored compatible rigs where distinct silhouettes require them. Keep avatar IDs and semantic states independent from rig details.
 
 **Gate:** All 22 avatars have reviewed base and connected variants, required initial poses, readable status cues, and complete version/provenance/license metadata before the first catalogue release.
 
