@@ -13,6 +13,10 @@ The collection uses polished, expressive stylized 3D characters with distinct si
 
 The catalogue now includes two human office-worker concepts alongside the original 20: Alex and Maya. Both use the same minimal T-shirt-and-jeans base outfit and casual jacket with shared chest badge when connected.
 
+## Bulb reference design
+
+[Bulb reference states](assets/concepts/bulb-reference-states-v1.png) is an initial visual draft showing the T-shirt-and-jeans base outfit, connected jacket and chest badge, and tablet-carrying message/alert presentation.
+
 ## Concept sheet
 
 The contact sheet is low-fidelity visual exploration for collection review, not approved production artwork. It shows all 22 current concepts, the connected-state casual jacket and shared chest badge, and a tablet-carrying message/alert pose.

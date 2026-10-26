@@ -57,6 +57,10 @@ The earlier human outfit language (T-shirt and jeans, with an added jacket when 
 
 All 20 avatars should be available in the first catalogue release. Bulb is the initial default; users can change their choice later. Stable IDs remain attached to the concepts even if names or artwork change.
 
+## Bulb reference design draft
+
+The initial Bulb reference sheet shows the same character in three presentation states: disconnected idle in a T-shirt and jeans, connected in the same outfit with a casual jacket and shared chest badge, and message/alert holding a tablet. It is a concept draft for visual review, not production artwork. The tablet is a message/alert prop and is independent of connection state.
+
 ## Implementation implications
 
 1. Develop Bulb first as the reference model to validate the collection style, outfit-state adaptation, chest badge, full-body desktop framing, and shared animation language.
