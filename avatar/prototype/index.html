@@ -78,7 +78,8 @@ for(const [x,y,s] of [[-.62,2.02,.045],[-.77,1.72,.025],[.64,2.12,.035]])sphere(
 // A compact brass socket joins the lamp head to the shirt.
 mesh(new THREE.CylinderGeometry(.19,.23,.13,40),brass,body,[0,.64,0]);
 mesh(new THREE.CylinderGeometry(.15,.19,.12,40),brass,body,[0,.53,0]);
-mesh(new THREE.CylinderGeometry(.14,.15,.08,40),brass,body,[0,.43,0]);\nmesh(new THREE.CylinderGeometry(.12,.12,.40,32),brass,body,[0,.22,0]);
+mesh(new THREE.CylinderGeometry(.14,.15,.08,40),brass,body,[0,.43,0]);
+mesh(new THREE.CylinderGeometry(.12,.12,.40,32),brass,body,[0,.22,0]);
 // Soft human-shaped tee, with a slight shoulder taper and visible collar.
 const shirtPoints=[[0,.13],[.34,.13],[.50,.02],[.39,-.14],[.35,-.64],[.25,-.79],[0,-.81]].map(([r,y])=>new THREE.Vector2(r,y));
 const torso=mesh(new THREE.LatheGeometry(shirtPoints,40),shirtMat,body);
