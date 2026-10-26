@@ -39,11 +39,11 @@ Keep the first implementation in this repository. Do not split it into a Git sub
 
 ### Phase 1 — Choose the visual direction
 
-1. Review the 20 options in [AVATAR_OPTIONS.md](AVATAR_OPTIONS.md).
-2. Select one candidate for the first working avatar; record the choice as an explicit decision.
-3. Define its proportions, face, palette, motif, clothing, and intended tone.
-4. Produce low-fidelity sketches for the T-shirt-and-jeans state and the matching jacket state.
-5. Review readability at desktop companion sizes and confirm the motif does not obscure connection status.
+1. Review the 20 concepts in [AVATAR_OPTIONS.md](AVATAR_OPTIONS.md) and the approved direction in [DESIGN_BRIEF.md](DESIGN_BRIEF.md).
+2. Use Bulb as the default reference model; users may choose another avatar later.
+3. Create a full-body Bulb design sheet and low-fidelity form sheets for the other 19 concepts.
+4. Confirm distinct silhouettes and bright individual palettes within the cohesive playful chibi style.
+5. Review the adapted base outfit, connected outer layer, shared chest badge, and status readability.
 
 **Gate:** Approve Bulb as the reference model and approve a form sheet for all 20 concepts, showing distinct silhouettes within one cohesive collection.
 
@@ -64,12 +64,12 @@ Specify safe fallback behavior: unknown or stale connection state must not show 
 Create source and optimized runtime assets for Bulb first, then produce all 19 other concepts in batches using the approved collection style:
 
 - Compact icon and larger presentation view.
-- T-shirt-and-jeans base appearance.
-- Matching connected version with jacket.
-- A small initial set of poses for idle, listening, thinking, and working.
+- Full-body character-appropriate base appearance.
+- Matching connected version with a form-appropriate outer layer and shared chest badge.
+- A small initial set of poses for idle, listening, thinking, and working, using the shared motion language.
 - Metadata for dimensions, supported states, version, source, author, and license.
 
-Use a paired 2D illustration/sprite prototype first to validate identity, state readability, and rendering performance. Keep the asset contract capable of supporting a later rigged 3D model without changing avatar IDs or semantic states.
+Build a stylized 3D Bulb prototype first to validate silhouette, state readability, the badge, and rendering performance. Reuse animation rigs where forms allow, with tailored compatible rigs where distinct silhouettes require them. Keep avatar IDs and semantic states independent from rig details.
 
 **Gate:** All 20 avatars have reviewed base and connected variants, required initial poses, readable status cues, and complete version/provenance/license metadata before the first catalogue release.
 
@@ -110,7 +110,7 @@ After all 20 initial options ship:
 ## Initial acceptance criteria
 
 - All 20 approved avatars can be selected and rendered in all required first-release states; Bulb is selected by default and can be changed later.
-- Disconnected and connected appearance differ only by the additional jacket and explicit status cue.
+- Disconnected and connected appearance differ by a form-appropriate outer layer and the shared chest badge; these cues communicate connection only.
 - Activity does not change connection clothing.
 - Unknown or stale connectivity never appears connected.
 - State has a text/accessibility equivalent and remains understandable without color.
