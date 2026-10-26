@@ -19,7 +19,7 @@ The catalogue now includes two human office-worker concepts alongside the origin
 
 ## Interactive Bulb prototype
 
-[Open the Bulb 3D prototype](prototype/index.html) in a modern browser with internet access. It demonstrates the T-shirt-and-jeans base look, connected jacket and badge, and independent message/alert tablet state. This is an early procedural preview, not production artwork.
+[Open the Bulb 3D prototype](prototype/index.html) in a modern browser with internet access. It demonstrates the T-shirt-and-jeans base look, connected jacket and badge, and independent message/alert tablet state. This is an early concept-matched visual preview, not production artwork.
 
 ## Bulb model sheet
 
