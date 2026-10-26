@@ -12,13 +12,13 @@ Connection and activity are independent. Motion preference controls how transiti
 
 | State | Outfit | Visible and accessible meaning |
 |---|---|---|
-| not_connected | Character-appropriate base outfit | PET is not connected |
-| connecting | Character-appropriate base outfit | A connection attempt is in progress |
-| connected | Same base outfit plus a form-appropriate outer layer and shared chest badge | Connection has been confirmed |
-| connection_lost | Character-appropriate base outfit after loss is confirmed | The established connection was lost |
-| unknown | Character-appropriate base outfit | Connection state is unknown |
+| not_connected | T-shirt-and-jeans base outfit | PET is not connected |
+| connecting | T-shirt-and-jeans base outfit | A connection attempt is in progress |
+| connected | Same T-shirt-and-jeans outfit plus a casual jacket and shared chest badge | Connection has been confirmed |
+| connection_lost | T-shirt-and-jeans base outfit after loss is confirmed | The established connection was lost |
+| unknown | T-shirt-and-jeans base outfit | Connection state is unknown |
 
-Only a current, affirmatively confirmed connected state may show the outer layer and connected badge. These are connection cues only; they do not indicate authority, role, activity, or trust.
+Only a current, affirmatively confirmed connected state may show the jacket and connected badge. These are connection cues only; they do not indicate authority, role, activity, or trust.
 
 ### Activity state
 
@@ -31,7 +31,7 @@ Only a current, affirmatively confirmed connected state may show the outer layer
 | waiting_for_user | Neutral expectant pose | waiting for you |
 | error | Clear, non-alarming cue | needs attention |
 
-Activity changes never change connection clothing. A connected PET that is thinking has the connected outer layer and chest badge; a disconnected PET that is thinking stays in its character-appropriate base outfit. Use the same simple activity-motion language across the collection.
+Activity changes never change connection clothing. A connected PET that is thinking has the connected jacket and chest badge; a disconnected PET that is thinking stays in its character-appropriate base outfit. Use the same simple activity-motion language across the collection.
 
 ### Motion preference
 
@@ -52,15 +52,15 @@ Expected connection flow:
                          not_connected
 
 - not_connected to connecting: retain base outfit; show connecting label/cue.
-- connecting to connected: add the form-appropriate outer layer and shared chest badge only after the client confirms current connectivity.
-- connected to connection_lost: client applies a configurable grace period for transient disruptions; when loss is confirmed, remove the connected outer layer and show loss.
+- connecting to connected: add the form-appropriate jacket and shared chest badge only after the client confirms current connectivity.
+- connected to connection_lost: client applies a configurable grace period for transient disruptions; when loss is confirmed, remove the connected jacket and show loss.
 - connection_lost to connecting: retain base outfit and show reconnecting.
-- Any state to unknown or stale: remove the connected outer layer and badge unless connected is affirmatively current.
+- Any state to unknown or stale: remove the connected jacket and badge unless connected is affirmatively current.
 - Activity transitions do not change connection state or outfit.
 - State text updates immediately and must not wait for an animation to finish.
 - Transitions are interruptible and respect reduced/static motion modes.
 
-The Edge/client owns connectivity truth and timing. The Avatar consumes the resolved state; the outer layer or badge must never be used as evidence that a service is connected.
+The Edge/client owns connectivity truth and timing. The Avatar consumes the resolved state; the jacket or badge must never be used as evidence that a service is connected.
 
 ## Presentation input and resolved output
 
@@ -94,7 +94,7 @@ Do not include credentials, private prompts, task contents, or sensitive Office 
 
 - Every connection/activity combination has an accurate text equivalent, for example “PET connected, thinking.”
 - State is not conveyed by color or motion alone.
-- The outer layer and shared chest badge remain distinguishable at target sizes; the text label remains available if they do not.
+- The jacket and shared chest badge remain distinguishable at target sizes; the text label remains available if they do not.
 - Respect reduced-motion settings and provide a static mode.
 - Decorative elements are hidden from assistive technology where appropriate; meaningful status is exposed through the accessibility tree.
 - Labels describe the state without implying human presence or authority.
@@ -127,7 +127,7 @@ Start with a local preview/state selector. The avatar renderer has no service cr
 For every released avatar, verify:
 
 - All connection states map to the specified outfit and label.
-- Only current connected state shows the connected outer layer and badge.
+- Only current connected state shows the connected jacket and badge.
 - Every activity works independently of connection outfit.
 - Unknown, stale, invalid, out-of-order, and missing inputs fall back safely.
 - Reduced-motion and static modes preserve semantic meaning.
