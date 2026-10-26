@@ -15,6 +15,6 @@ The catalogue now includes two human office-worker concepts alongside the origin
 
 ## Concept sheet
 
-The contact sheet is low-fidelity visual exploration for collection review, not approved production artwork. The connected-state insets show the casual jacket and shared chest badge. The full sheet is still being updated for the two human concepts and tablet prop.
+The contact sheet is low-fidelity visual exploration for collection review, not approved production artwork. It shows all 22 current concepts, the connected-state casual jacket and shared chest badge, and a tablet-carrying message/alert pose.
 
 ![Twenty-two stylized 3D PET avatar concept options](assets/concepts/avatar-contact-sheet-v2.png)
