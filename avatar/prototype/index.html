@@ -31,7 +31,12 @@ small{display:block;margin-top:22px;color:#8696a9}
 <button data-connection="connected" aria-pressed="false">Connected</button></div>
 <div class="group"><h2>Activity</h2>
 <button data-activity="idle" aria-pressed="true">Idle</button>
-<button data-activity="message_alert" aria-pressed="false">Message / alert</button></div>
+<button data-activity="listening" aria-pressed="false">Listening</button>
+<button data-activity="thinking" aria-pressed="false">Thinking</button>
+<button data-activity="working" aria-pressed="false">Working</button>
+<button data-activity="waiting_for_user" aria-pressed="false">Waiting</button>
+<button data-activity="message_alert" aria-pressed="false">Message / alert</button>
+<button data-activity="error" aria-pressed="false">Needs attention</button></div>
 <div id="status" role="status" aria-live="polite">Bulb idle, disconnected</div>
 <small>Concept prototype only. The tablet shows no message content. The connection outfit and alert activity are controlled independently.</small>
 </aside>
@@ -115,6 +120,7 @@ for(const x of [.12,.76]){
 
 const floor=make(new THREE.CircleGeometry(2.5,48),mat(0x283546,.8),scene,[0,-.03,0],[1,1,.38]);floor.rotation.x=-Math.PI/2;
 const shadow=make(new THREE.CircleGeometry(1.2,48),new THREE.MeshBasicMaterial({color:0x0a0d12,transparent:true,opacity:.42}),scene,[0,.015,0],[1,.28,.4]);
+const attentionCue=make(sphere,mat(0xff4d5e,.3,0,0xff263b,.7),root,[.78,2.82,.25],[.12,.12,.12]);
 
 let connection="not_connected",activity="idle";
 document.querySelectorAll("[data-connection]").forEach(b=>b.onclick=()=>{connection=b.dataset.connection;sync();});
@@ -122,12 +128,15 @@ document.querySelectorAll("[data-activity]").forEach(b=>b.onclick=()=>{activity=
 function sync(){
  jacket.visible=connection==="connected";
  tablet.visible=activity==="message_alert";
+ attentionCue.visible=activity==="error";
+ ball.rotation.z=activity==="thinking"?.07:activity==="listening"?-.035:0;
  alertHands.visible=activity==="message_alert";
  arms.forEach(a=>a.visible=activity!=="message_alert");
  defaultHands.forEach(h=>h.visible=activity!=="message_alert");
  document.querySelectorAll("[data-connection]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.connection===connection)));
  document.querySelectorAll("[data-activity]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.activity===activity)));
- document.querySelector("#status").textContent=`Bulb ${activity==="idle"?"idle":"showing a message or alert"}, ${connection==="connected"?"connected":"disconnected"}`;
+ const activityLabels={idle:"idle",listening:"listening",thinking:"thinking",working:"working",waiting_for_user:"waiting for you",message_alert:"showing a message or alert",error:"needs attention"};
+ document.querySelector("#status").textContent=`Bulb ${activityLabels[activity]}, ${connection==="connected"?"connected":"disconnected"}`;
 }
 sync();
 const clock=new THREE.Clock();
