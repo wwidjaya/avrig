@@ -9,10 +9,10 @@ Create a recognizable, accessible PET avatar that can be selected from the 20 pr
 
 ## Product rules
 
-- The collection uses a cohesive playful, expressive stylized 3D chibi art direction with large expressive eyes and simple features.
+- The collection uses a cohesive, polished stylized 3D chibi art direction with large expressive eyes, simple features, and a professional office-casual presentation.
 - Each avatar has a distinct silhouette, a bright saturated palette unique to that avatar, and materials suited to its concept.
 - Preserve each avatar's identity across states.
-- Adapt base clothing to each character form when not connected; when connected, add a form-appropriate outer layer and the shared small chest badge.
+- Use a minimal T-shirt and jeans as the base outfit, adapted to each character form; when connected, add a clearly visible casual jacket and the shared small chest badge.
 - The connected outer layer and badge communicate connection only, not authority, role, activity, or trust.
 - Connection and activity are separate states. For example, a connected PET may be idle, thinking, or working.
 - Every state has a text/accessibility equivalent and must not depend on color or animation alone.
@@ -43,7 +43,7 @@ Keep the first implementation in this repository. Do not split it into a Git sub
 2. Use Bulb as the default reference model; users may choose another avatar later.
 3. Create a full-body Bulb design sheet and low-fidelity form sheets for the other 19 concepts.
 4. Confirm distinct silhouettes and bright individual palettes within the cohesive playful chibi style.
-5. Review the adapted base outfit, connected outer layer, shared chest badge, and status readability.
+5. Review the adapted T-shirt-and-jeans base outfit, connected casual jacket, shared chest badge, and status readability.
 
 **Gate:** Approve Bulb as the reference model and approve a form sheet for all 20 concepts, showing distinct silhouettes within one cohesive collection.
 
