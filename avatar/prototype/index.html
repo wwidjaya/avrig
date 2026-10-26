@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>avrig-ai — Bulb PET 3D prototype</title>
+<style>
+:root{color-scheme:dark;font:15px/1.45 Inter,ui-sans-serif,system-ui,sans-serif;background:#10151e;color:#edf3fb}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 310px}
+#stage{min-height:100vh;position:relative;background:radial-gradient(ellipse at 50% 43%,#344359 0,#1b2635 48%,#10151e 100%)}
+canvas{width:100%;height:100%;display:block}
+aside{padding:28px 22px;border-left:1px solid #354152;background:#151d28}
+h1{font-size:22px;margin:0 0 4px}p{color:#b4c1d2;margin:0 0 20px}.group{margin:24px 0}h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:#8fa3bc;margin:0 0 9px}
+button{font:inherit;color:#eaf1fb;background:#202d3d;border:1px solid #42536a;border-radius:9px;padding:9px 12px;cursor:pointer;margin:0 5px 5px 0}
+button[aria-pressed="true"]{background:#244b7d;border-color:#5ca1f2;box-shadow:0 0 0 1px #5ca1f2 inset}
+#status{padding:12px;background:#202d3d;border-radius:9px;color:#dce8f8}
+small{display:block;margin-top:22px;color:#8696a9}
+@media(max-width:760px){body{grid-template-columns:1fr}#stage{min-height:65vh}aside{border-left:0;border-top:1px solid #354152}}
+</style>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"}}
+</script>
+</head>
+<body>
+<main id="stage" aria-label="Interactive 3D preview of the Bulb PET avatar"></main>
+<aside>
+<h1>Bulb PET</h1>
+<p>Interactive 3D reference prototype</p>
+<div class="group"><h2>Connection</h2>
+<button data-connection="not_connected" aria-pressed="true">Disconnected</button>
+<button data-connection="connected" aria-pressed="false">Connected</button></div>
+<div class="group"><h2>Activity</h2>
+<button data-activity="idle" aria-pressed="true">Idle</button>
+<button data-activity="message_alert" aria-pressed="false">Message / alert</button></div>
+<div id="status" role="status" aria-live="polite">Bulb idle, disconnected</div>
+<small>Concept prototype only. The tablet shows no message content. The connection outfit and alert activity are controlled independently.</small>
+</aside>
+<script type="module">
+import * as THREE from "three";
+
+const stage=document.querySelector("#stage");
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x1b2635);
+const camera=new THREE.PerspectiveCamera(34,1,0.1,100);
+camera.position.set(0,1.8,8.8);
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+stage.appendChild(renderer.domElement);
+
+scene.add(new THREE.HemisphereLight(0xe7f3ff,0x34303a,2.1));
+const key=new THREE.DirectionalLight(0xfff1cc,3.2);key.position.set(-3,6,5);key.castShadow=true;scene.add(key);
+const fill=new THREE.PointLight(0xffae36,24,12);fill.position.set(0,2.8,1.2);scene.add(fill);
+
+const mat=(color,roughness=.65,metalness=0,emissive=0x000000,intensity=0)=>new THREE.MeshStandardMaterial({color,roughness,metalness,emissive,emissiveIntensity:intensity});
+const bulbMat=mat(0xffbd22,.27,.05,0xff8a00,.42);
+const white=mat(0xf4f0e9,.86), denim=mat(0x315c90,.86), navy=mat(0x142d51,.5,.04), shoe=mat(0xf6f4ef,.75), dark=mat(0x231811,.2), iris=mat(0x7b3a0c,.25), badgeMat=mat(0x21a8ff,.3,.1,0x087aff,.5);
+const root=new THREE.Group();scene.add(root);
+const make=(geometry,material,parent,pos,scale)=>{const m=new THREE.Mesh(geometry,material);m.position.set(...pos);if(scale)m.scale.set(...scale);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m};
+const sphere=new THREE.SphereGeometry(1,32,24), capsule=new THREE.CapsuleGeometry(.16,.35,8,16);
+const ball=make(sphere,bulbMat,root,[0,2.35,0],[.92,.92,.72]);
+make(sphere,mat(0xffe56a,.35,0,0xffbf24,.4),root,[0,1.64,0],[.24,.22,.23]);
+const torso=make(new THREE.CapsuleGeometry(.34,.52,8,16),white,root,[0,1.16,0],[1,.88,.82]);
+const legs=[];
+for(const x of [-.23,.23]){
+ const leg=make(new THREE.CapsuleGeometry(.17,.55,6,12),denim,root,[x,.47,0],[1,1,.82]);legs.push(leg);
+ make(new THREE.SphereGeometry(.19,20,14),shoe,root,[x,.12,.1],[1.2,.65,1.55]);
+}
+const arms=[];
+for(const x of [-.52,.52]){
+ const arm=make(new THREE.CapsuleGeometry(.14,.43,6,12),bulbMat,root,[x,1.2,.02],[1,1,.9]);arms.push(arm);
+ make(sphere,bulbMat,root,[x, .91,.02],[.17,.17,.17]);
+}
+const eyes=[];
+for(const x of [-.34,.34]){
+ make(sphere,dark,root,[x,2.35,.62],[.205,.27,.11]);
+ const eye=make(sphere,iris,root,[x,2.33,.72],[.145,.195,.07]);eyes.push(eye);
+ make(sphere,mat(0xffffff,.1),root,[x-.04,2.41,.78],[.052,.065,.025]);
+}
+const mouth=make(new THREE.TorusGeometry(.12,.025,8,24,Math.PI),mat(0x74320f,.4),root,[0,2.02,.69],[1,.62,1]);
+const filament=mat(0xfff2a0,.35,0,0xffdc50,.5);
+make(new THREE.TorusGeometry(.21,.025,8,32,Math.PI),filament,root,[0,2.68,.66],[1,1,.6]).rotation.z=Math.PI;
+make(new THREE.CylinderGeometry(.025,.025,.26,10),filament,root,[0,2.78,.66]);
+
+// Connected-state outfit layer and shared chest badge.
+const jacket=new THREE.Group();root.add(jacket);
+const jacketTorso=make(new THREE.CapsuleGeometry(.38,.54,8,16),navy,jacket,[0,1.16,-.012],[1,.9,.88]);
+const shirtPanel=make(new THREE.BoxGeometry(.26,.64,.04),white,jacket,[0,1.18,.34]);
+for(const x of [-.22,.22]){
+ make(new THREE.BoxGeometry(.18,.68,.1),navy,jacket,[x,1.17,.32]);
+ make(new THREE.CapsuleGeometry(.16,.42,6,12),navy,jacket,[x*2.15,1.2,.015]);
+}
+const badge=make(new THREE.CircleGeometry(.12,24),badgeMat,jacket,[.25,1.38,.425]);
+for(const x of [-.055,.055])make(new THREE.SphereGeometry(.024,10,8),mat(0xffffff,.15),jacket,[x+.25,1.38,.45]);
+make(new THREE.BoxGeometry(.11,.025,.025),mat(0xffffff,.15),jacket,[.25,1.38,.45]);
+
+// Tablet appears only for the message/alert activity; screen stays blank.
+const tablet=new THREE.Group();root.add(tablet);
+make(new THREE.BoxGeometry(.58,.82,.075),mat(0x242b35,.35,.35),tablet,[.35,1.19,.62]);
+make(new THREE.BoxGeometry(.49,.69,.012),mat(0x607184,.28,.05),tablet,[.35,1.19,.665]);
+make(new THREE.SphereGeometry(.018,8,8),mat(0xcbd7e5,.2),tablet,[.35,1.57,.676]);
+
+const floor=make(new THREE.CircleGeometry(2.5,48),mat(0x283546,.8),scene,[0,-.03,0],[1,1,.38]);floor.rotation.x=-Math.PI/2;
+const shadow=make(new THREE.CircleGeometry(1.2,48),new THREE.MeshBasicMaterial({color:0x0a0d12,transparent:true,opacity:.42}),scene,[0,.015,0],[1,.28,.4]);
+
+let connection="not_connected",activity="idle";
+document.querySelectorAll("[data-connection]").forEach(b=>b.onclick=()=>{connection=b.dataset.connection;sync();});
+document.querySelectorAll("[data-activity]").forEach(b=>b.onclick=()=>{activity=b.dataset.activity;sync();});
+function sync(){
+ jacket.visible=connection==="connected";
+ tablet.visible=activity==="message_alert";
+ document.querySelectorAll("[data-connection]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.connection===connection)));
+ document.querySelectorAll("[data-activity]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.activity===activity)));
+ document.querySelector("#status").textContent=`Bulb ${activity==="idle"?"idle":"showing a message or alert"}, ${connection==="connected"?"connected":"disconnected"}`;
+}
+sync();
+const clock=new THREE.Clock();
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(stage);resize();
+function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();root.position.y=Math.sin(t*1.4)*.035;ball.scale.y=.92+Math.sin(t*1.4)*.008;const blink=(Math.sin(t*1.7)>0.997)?0.15:1;eyes.forEach(e=>e.scale.y=.195*blink);renderer.render(scene,camera);}
+animate();
+</script>
+</body>
+</html>

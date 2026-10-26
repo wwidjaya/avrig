@@ -17,6 +17,10 @@ The catalogue now includes two human office-worker concepts alongside the origin
 
 [Bulb reference states](assets/concepts/bulb-reference-states-v1.png) is an initial visual draft showing the T-shirt-and-jeans base outfit, connected jacket and chest badge, and tablet-carrying message/alert presentation.
 
+## Interactive Bulb prototype
+
+[Open the Bulb 3D prototype](prototype/index.html) in a modern browser with internet access. It demonstrates the T-shirt-and-jeans base look, connected jacket and badge, and independent message/alert tablet state. This is an early procedural preview, not production artwork.
+
 ## Bulb model sheet
 
 **Approved as the visual reference direction.** [Bulb character model sheet](assets/concepts/bulb-model-sheet-v1.png) shows base outfit front/side/back views, connected and message/alert looks, facial expressions, and key material details. Approval applies to the visual direction; this remains concept artwork, not production art.
