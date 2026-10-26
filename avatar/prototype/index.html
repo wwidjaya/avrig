@@ -68,10 +68,10 @@ for(const x of [-.23,.23]){
  const leg=make(new THREE.CapsuleGeometry(.17,.55,6,12),denim,root,[x,.47,0],[1,1,.82]);legs.push(leg);
  make(new THREE.SphereGeometry(.19,20,14),shoe,root,[x,.12,.1],[1.2,.65,1.55]);
 }
-const arms=[];
+const arms=[],defaultHands=[];
 for(const x of [-.52,.52]){
  const arm=make(new THREE.CapsuleGeometry(.14,.43,6,12),bulbMat,root,[x,1.2,.02],[1,1,.9]);arms.push(arm);
- make(sphere,bulbMat,root,[x, .91,.02],[.17,.17,.17]);
+ defaultHands.push(make(sphere,bulbMat,root,[x, .91,.02],[.17,.17,.17]));
 }
 const eyes=[];
 for(const x of [-.34,.34]){
@@ -80,6 +80,7 @@ for(const x of [-.34,.34]){
  make(sphere,mat(0xffffff,.1),root,[x-.04,2.41,.78],[.052,.065,.025]);
 }
 const mouth=make(new THREE.TorusGeometry(.12,.025,8,24,Math.PI),mat(0x74320f,.4),root,[0,2.02,.69],[1,.62,1]);
+mouth.rotation.z=Math.PI;
 const filament=mat(0xfff2a0,.35,0,0xffdc50,.5);
 make(new THREE.TorusGeometry(.21,.025,8,32,Math.PI),filament,root,[0,2.68,.66],[1,1,.6]).rotation.z=Math.PI;
 make(new THREE.CylinderGeometry(.025,.025,.26,10),filament,root,[0,2.78,.66]);
@@ -92,15 +93,21 @@ for(const x of [-.22,.22]){
  make(new THREE.BoxGeometry(.18,.68,.1),navy,jacket,[x,1.17,.32]);
  make(new THREE.CapsuleGeometry(.16,.42,6,12),navy,jacket,[x*2.15,1.2,.015]);
 }
-const badge=make(new THREE.CircleGeometry(.12,24),badgeMat,jacket,[.25,1.38,.425]);
-for(const x of [-.055,.055])make(new THREE.SphereGeometry(.024,10,8),mat(0xffffff,.15),jacket,[x+.25,1.38,.45]);
-make(new THREE.BoxGeometry(.11,.025,.025),mat(0xffffff,.15),jacket,[.25,1.38,.45]);
+const badge=make(new THREE.CircleGeometry(.12,24),badgeMat,jacket,[-.25,1.38,.425]);
+for(const x of [-.055,.055])make(new THREE.SphereGeometry(.024,10,8),mat(0xffffff,.15),jacket,[x-.25,1.38,.45]);
+make(new THREE.BoxGeometry(.11,.025,.025),mat(0xffffff,.15),jacket,[-.25,1.38,.45]);
 
 // Tablet appears only for the message/alert activity; screen stays blank.
 const tablet=new THREE.Group();root.add(tablet);
-make(new THREE.BoxGeometry(.58,.82,.075),mat(0x242b35,.35,.35),tablet,[.35,1.19,.62]);
-make(new THREE.BoxGeometry(.49,.69,.012),mat(0x607184,.28,.05),tablet,[.35,1.19,.665]);
-make(new THREE.SphereGeometry(.018,8,8),mat(0xcbd7e5,.2),tablet,[.35,1.57,.676]);
+make(new THREE.BoxGeometry(.58,.82,.075),mat(0x242b35,.35,.35),tablet,[.43,1.19,.62]);
+make(new THREE.BoxGeometry(.49,.69,.012),mat(0x607184,.28,.05),tablet,[.43,1.19,.665]);
+make(new THREE.SphereGeometry(.018,8,8),mat(0xcbd7e5,.2),tablet,[.43,1.57,.676]);
+const alertHands=new THREE.Group();root.add(alertHands);
+for(const x of [.14,.72]){
+ const forearm=make(new THREE.CapsuleGeometry(.11,.3,6,10),bulbMat,alertHands,[x,1.02,.74],[1,1,.9]);
+ forearm.rotation.z=x<.4?-.42:.42;
+ make(sphere,bulbMat,alertHands,[x,1.02,.85],[.14,.13,.12]);
+}
 
 const floor=make(new THREE.CircleGeometry(2.5,48),mat(0x283546,.8),scene,[0,-.03,0],[1,1,.38]);floor.rotation.x=-Math.PI/2;
 const shadow=make(new THREE.CircleGeometry(1.2,48),new THREE.MeshBasicMaterial({color:0x0a0d12,transparent:true,opacity:.42}),scene,[0,.015,0],[1,.28,.4]);
@@ -111,6 +118,9 @@ document.querySelectorAll("[data-activity]").forEach(b=>b.onclick=()=>{activity=
 function sync(){
  jacket.visible=connection==="connected";
  tablet.visible=activity==="message_alert";
+ alertHands.visible=activity==="message_alert";
+ arms.forEach(a=>a.visible=activity!=="message_alert");
+ defaultHands.forEach(h=>h.visible=activity!=="message_alert");
  document.querySelectorAll("[data-connection]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.connection===connection)));
  document.querySelectorAll("[data-activity]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.activity===activity)));
  document.querySelector("#status").textContent=`Bulb ${activity==="idle"?"idle":"showing a message or alert"}, ${connection==="connected"?"connected":"disconnected"}`;
