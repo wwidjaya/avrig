@@ -6,7 +6,7 @@
 
 The PET catalogue is a cohesive collection of **polished, expressive, stylized 3D chibi characters** with an office-casual presentation. Each character has a **distinct silhouette** and a **bright, saturated palette unique to that avatar**. Materials may vary to suit each concept while sharing consistent quality, proportions, lighting, and finish. Faces use large expressive eyes and simple features.
 
-Each avatar’s character form directly reflects its name and concept. The visual cues below are starting art directions for design sheets, not finished model specifications.
+Each avatar’s character form directly reflects its name and concept. Characters may carry a compact tablet when presenting a message or alert; the tablet is a presentation prop and never communicates connection state. The visual cues below are starting art directions for design sheets, not finished model specifications.
 
 | ID | Name | Starting character-form direction |
 |---|---|---|
@@ -41,7 +41,7 @@ Use form-appropriate clothing while preserving the established visual meaning:
 - **Connected:** add a form-appropriate outer layer and the same small chest badge across the collection.
 - The chest badge is a shared connection cue. Its states must also use distinct shapes/icons and text labels; color alone is insufficient.
 - Outer layer and badge communicate connection only. They do not imply authority, role, activity, or trust.
-- Activity does not change the outfit.
+- Activity does not change connection clothing. A message/alert presentation may add a compact tablet prop.
 
 The earlier human outfit language (T-shirt and jeans, with an added jacket when connected) is adapted for non-human and unusual forms rather than imposed literally on every model.
 
@@ -49,7 +49,7 @@ The earlier human outfit language (T-shirt and jeans, with an added jacket when 
 
 - The floating desktop PET uses a full-body view.
 - Idle behavior is subtle breathing and blinking, with no distracting continuous motion.
-- Listening, thinking, working, waiting, and error use the same simple motion language across all avatars. Character-specific motion is not required for the first collection.
+- Listening, thinking, working, waiting, message/alert, and error use the same simple motion language across all avatars. Character-specific motion is not required for the first collection.
 - Reuse animation rigs where the character forms allow it; use compatible tailored rigs when a distinct silhouette requires them.
 - Reduced-motion and static modes preserve all state information.
 
