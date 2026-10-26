@@ -3,63 +3,119 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>avrig-ai — Bulb PET concept preview</title>
+<title>avrig-ai — Bulb PET 3D prototype</title>
 <style>
 :root{color-scheme:dark;font:15px/1.45 Inter,ui-sans-serif,system-ui,sans-serif;background:#10151e;color:#edf3fb}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 330px}
-#stage{min-height:100vh;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 46%,#344359 0,#1b2635 48%,#10151e 100%)}
-#avatar-frame{width:min(100%,100vh);aspect-ratio:1/1;background-image:url("../assets/concepts/bulb-state-atlas-v1.png");background-repeat:no-repeat;background-size:200% 200%;background-position:0 0;animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 330px}
+#stage{position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(ellipse at 50% 43%,#405875 0,#202e41 48%,#10151e 100%);touch-action:none}
+canvas{display:block;width:100%;height:100%;min-height:100vh;cursor:grab}canvas:active{cursor:grabbing}
+#hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:#c7d5e6;background:#111a27b8;padding:8px 12px;border:1px solid #ffffff20;border-radius:999px;pointer-events:none;white-space:nowrap}
 aside{padding:26px 20px;border-left:1px solid #354152;background:#151d28;overflow:auto}
-h1{font-size:22px;margin:0 0 4px}p{color:#b4c1d2;margin:0 0 18px}
-.group{margin:22px 0}h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:#8fa3bc;margin:0 0 9px}
+h1{font-size:22px;margin:0 0 4px}p{color:#b4c1d2;margin:0 0 18px}.group{margin:22px 0}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:#8fa3bc;margin:0 0 9px}
 button{font:inherit;color:#eaf1fb;background:#202d3d;border:1px solid #42536a;border-radius:9px;padding:9px 12px;cursor:pointer;margin:0 5px 5px 0}
 button[aria-pressed="true"]{background:#244b7d;border-color:#5ca1f2;box-shadow:0 0 0 1px #5ca1f2 inset}
 button:focus-visible{outline:2px solid #a8d0ff;outline-offset:2px}
 #status{padding:12px;background:#202d3d;border-radius:9px;color:#dce8f8}
 small{display:block;margin-top:18px;color:#9baabd}
-@media(max-width:760px){body{grid-template-columns:1fr}#stage{min-height:64vh}#avatar-frame{width:min(100%,64vh)}aside{border-left:0;border-top:1px solid #354152}}
-@media(prefers-reduced-motion:reduce){#avatar-frame{animation:none}}
+#error{display:none;margin:18px;padding:14px;background:#512d32;border-radius:9px}
+@media(max-width:760px){body{grid-template-columns:1fr}#stage{min-height:64vh}canvas{min-height:64vh}aside{border-left:0;border-top:1px solid #354152}}
+@media(prefers-reduced-motion:reduce){#hint{display:none}}
 </style>
 </head>
 <body>
-<main id="stage" aria-label="Bulb PET concept preview">
-<div id="avatar-frame" role="img" aria-label="Bulb PET, disconnected, idle"></div>
+<main id="stage" aria-label="Interactive 3D Bulb PET preview">
+<div id="error" role="alert">The 3D preview could not load. Check your internet connection and reload.</div>
+<div id="hint">Drag to rotate · Scroll to zoom</div>
 </main>
 <aside>
 <h1>Bulb PET</h1>
-<p>Concept-matched visual prototype</p>
+<p>Interactive 3D concept prototype</p>
 <div class="group"><h2>Connection</h2>
-<button data-connection="not_connected" aria-pressed="true">Disconnected</button>
+<button data-connection="disconnected" aria-pressed="true">Disconnected</button>
 <button data-connection="connected" aria-pressed="false">Connected</button></div>
 <div class="group"><h2>Activity</h2>
 <button data-activity="idle" aria-pressed="true">Idle</button>
-<button data-activity="listening" aria-pressed="false">Listening</button>
-<button data-activity="thinking" aria-pressed="false">Thinking</button>
-<button data-activity="working" aria-pressed="false">Working</button>
-<button data-activity="waiting_for_user" aria-pressed="false">Waiting</button>
-<button data-activity="message_alert" aria-pressed="false">Message / alert</button>
-<button data-activity="error" aria-pressed="false">Needs attention</button></div>
+<button data-activity="message" aria-pressed="false">Message / alert</button></div>
+<div class="group"><h2>View</h2>
+<button id="reset-view" type="button">Reset view</button>
+<button id="spin-toggle" type="button" aria-pressed="false">Auto rotate: off</button></div>
 <div id="status" role="status" aria-live="polite">Bulb idle, disconnected</div>
-<small>Artwork uses the approved Bulb concept render. Idle and message/alert have dedicated artwork in this preview; other activities use the closest base pose until their artwork is made. The tablet screen contains no message content.</small>
+<small>Drag to inspect Bulb from different angles. The 3D model is a procedural prototype guided by the approved concept art; it is not the final production model. Idle animation includes gentle breathing and blinking.</small>
 </aside>
-<script>
-const frame=document.querySelector("#avatar-frame");
-let connection="not_connected",activity="idle";
-const labels={idle:"idle",listening:"listening",thinking:"thinking",working:"working",waiting_for_user:"waiting for you",message_alert:"showing a message or alert",error:"needs attention"};
-document.querySelectorAll("[data-connection]").forEach(button=>button.addEventListener("click",()=>{connection=button.dataset.connection;sync();}));
-document.querySelectorAll("[data-activity]").forEach(button=>button.addEventListener("click",()=>{activity=button.dataset.activity;sync();}));
-function sync(){
- const alert=activity==="message_alert";
- const x=connection==="connected"?100:0,y=alert?100:0;
- frame.style.backgroundPosition=x+"% "+y+"%";
- frame.setAttribute("aria-label",`Bulb PET, ${connection==="connected"?"connected":"disconnected"}, ${labels[activity]}`);
- document.querySelector("#status").textContent=`Bulb ${labels[activity]}, ${connection==="connected"?"connected":"disconnected"}`;
- document.querySelectorAll("[data-connection]").forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.connection===connection)));
- document.querySelectorAll("[data-activity]").forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.activity===activity)));
+<script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js";
+const stage=document.querySelector("#stage"), status=document.querySelector("#status");
+const scene=new THREE.Scene(); scene.background=null;
+const camera=new THREE.PerspectiveCamera(32,1,.1,100);camera.position.set(0,1.4,8.5);
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.1;stage.prepend(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xc8e4ff,0x493625,2.0));
+const key=new THREE.DirectionalLight(0xfff2d6,3.1);key.position.set(-4,6,6);scene.add(key);
+const rim=new THREE.DirectionalLight(0x69a9ff,2.3);rim.position.set(4,3,-4);scene.add(rim);
+const fill=new THREE.PointLight(0xffba4c,18,9);fill.position.set(0,2.1,1.7);scene.add(fill);
+const mat=(color,roughness=.4,metalness=0)=>new THREE.MeshStandardMaterial({color,roughness,metalness});
+const root=new THREE.Group();scene.add(root);
+const body=new THREE.Group();root.add(body);
+const bulbMat=new THREE.MeshPhysicalMaterial({color:0xffcc4f,roughness:.24,metalness:.03,clearcoat:.9,clearcoatRoughness:.13,emissive:0x8a4b06,emissiveIntensity:.22});
+const shirtMat=mat(0x58a9c8,.72), jeansMat=mat(0x315c91,.82), shoeMat=mat(0x293342,.7), goldMat=mat(0xb7792b,.32,.72), skinMat=mat(0xffd49a,.5);
+function mesh(geo,material,parent=body,pos=[0,0,0],rot=[0,0,0]){const m=new THREE.Mesh(geo,material);m.position.set(...pos);m.rotation.set(...rot);parent.add(m);m.castShadow=true;m.receiveShadow=true;return m}
+function sphere(parent,material,pos,scale,segments=32){const m=mesh(new THREE.SphereGeometry(1,segments,24),material,parent,pos);m.scale.set(...scale);return m}
+const glass=sphere(body,bulbMat,[0,1.55,0],[.92,.94,.72],48);
+mesh(new THREE.CylinderGeometry(.38,.53,.28,40),goldMat,body,[0,.77,0]);
+mesh(new THREE.CylinderGeometry(.34,.4,.16,40),goldMat,body,[0,.56,0]);
+mesh(new THREE.CylinderGeometry(.30,.34,.15,40),goldMat,body,[0,.40,0]);
+mesh(new THREE.CylinderGeometry(.24,.30,.13,40),goldMat,body,[0,.26,0]);
+const torso=mesh(new THREE.CapsuleGeometry(.48,.65,8,20),shirtMat,body,[0,-.48,0]);torso.scale.set(.9,1, .7);
+const legs=[];
+for(const side of [-1,1]){
+ const leg=mesh(new THREE.CapsuleGeometry(.19,.56,6,16),jeansMat,body,[side*.24,-1.31,0]);leg.rotation.z=side*.045;legs.push(leg);
+ sphere(body,shoeMat,[side*.25,-1.78,.08],[.27,.13,.37]);
+ const arm=sphere(body,shirtMat,[side*.61,-.41,0],[.18,.46,.19]);arm.rotation.z=side*-.25;
+ sphere(body,skinMat,[side*.68,-.82,.03],[.15,.16,.15]);
 }
-sync();
+// face features attached to the glass sphere surface, facing camera
+const face=new THREE.Group();face.position.set(0,1.46,.68);body.add(face);
+const white=mat(0xfff8e8,.25), iris=mat(0x493323,.22), pupil=mat(0x171b25,.16), shine=new THREE.MeshBasicMaterial({color:0xffffff});
+const eyes=[];
+for(const x of [-.29,.29]){
+ const eye=sphere(face,white,[x,.03,0],[.20,.245,.09]);eyes.push(eye);
+ sphere(face,iris,[x+.015,-.005,.075],[.112,.145,.055]);
+ sphere(face,pupil,[x+.018,-.002,.113],[.066,.10,.025]);
+ sphere(face,shine,[x-.025,.055,.137],[.027,.034,.015],16);
+}
+const smile=mesh(new THREE.TorusGeometry(.12,.025,10,24,Math.PI),mat(0x70452c),face,[0,-.23,.08]);smile.rotation.z=Math.PI;
+for(const x of [-.48,.48]) sphere(face,mat(0xf39b70),[x,-.15,.015],[.10,.055,.025]);
+const jacket=new THREE.Group();body.add(jacket);
+const jacketMat=mat(0x203c5c,.66);
+for(const side of [-1,1]){
+ const panel=mesh(new THREE.BoxGeometry(.31,.86,.12),jacketMat,jacket,[side*.28,-.46,.39]);panel.rotation.z=side*-.08;
+ const sleeve=sphere(jacket,jacketMat,[side*.65,-.43,.03],[.19,.47,.20]);sleeve.rotation.z=side*-.22;
+}
+mesh(new THREE.BoxGeometry(.1,.12,.035),mat(0x66b9ff,.3,.15),jacket,[0,-.22,.47]);
+const tablet=new THREE.Group();body.add(tablet);
+const tab=mesh(new THREE.BoxGeometry(.58,.42,.07),mat(0x263442,.28,.2),tablet,[.46,-.69,.32],[0,0,-.22]);
+mesh(new THREE.BoxGeometry(.49,.32,.015),mat(0x78bde8,.2),tablet,[.46,-.69,.365],[0,0,-.22]);
+tablet.visible=false;jacket.visible=false;
+let connection="disconnected",activity="idle",autoRotate=false,down=false,lastX=0,lastY=0,dragged=false;
+let theta=.18,phi=.08,distance=8.5;
+function updateCamera(){phi=Math.max(-.32,Math.min(.55,phi));camera.position.set(distance*Math.sin(theta)*Math.cos(phi),1.3+distance*Math.sin(phi),distance*Math.cos(theta)*Math.cos(phi));camera.lookAt(0,.15,0)}
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+new ResizeObserver(resize).observe(stage);resize();
+renderer.domElement.addEventListener("pointerdown",e=>{down=true;dragged=false;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
+renderer.domElement.addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;if(Math.abs(dx)+Math.abs(dy)>2)dragged=true;theta-=dx*.008;phi+=dy*.006;lastX=e.clientX;lastY=e.clientY;updateCamera()});
+renderer.domElement.addEventListener("pointerup",()=>{down=false});
+renderer.domElement.addEventListener("wheel",e=>{distance=Math.max(5,Math.min(12,distance+e.deltaY*.008));updateCamera()},{passive:true});
+document.querySelector("#reset-view").onclick=()=>{theta=.18;phi=.08;distance=8.5;updateCamera()};
+document.querySelector("#spin-toggle").onclick=e=>{autoRotate=!autoRotate;e.currentTarget.setAttribute("aria-pressed",String(autoRotate));e.currentTarget.textContent="Auto rotate: "+(autoRotate?"on":"off")};
+document.querySelectorAll("[data-connection]").forEach(b=>b.onclick=()=>{connection=b.dataset.connection;jacket.visible=connection==="connected";sync()});
+document.querySelectorAll("[data-activity]").forEach(b=>b.onclick=()=>{activity=b.dataset.activity;tablet.visible=activity==="message";sync()});
+function sync(){status.textContent="Bulb "+(activity==="idle"?"idle":"showing a message or alert")+", "+connection;document.querySelectorAll("[data-connection]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.connection===connection)));document.querySelectorAll("[data-activity]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.activity===activity)))}
+const clock=new THREE.Clock();let blink=0,nextBlink=2.3;
+function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime(),dt=clock.getDelta();body.position.y=Math.sin(t*1.6)*.045;torso.scale.y=.98+Math.sin(t*1.6)*.025;if(autoRotate&&!down)theta+=dt*.35;
+ if(t>nextBlink&&blink===0)blink=.001;
+ if(blink>0){blink+=dt;const k=blink<.12?1-blink/.12:blink<.22?(blink-.12)/.1:1;for(const eye of eyes)eye.scale.y=.245*Math.max(.08,k);if(blink>.22){blink=0;for(const eye of eyes)eye.scale.y=.245;nextBlink=t+2.5+Math.random()*2.5}}
+ updateCamera();renderer.render(scene,camera)}
+updateCamera();sync();animate();
 </script>
 </body>
 </html>
