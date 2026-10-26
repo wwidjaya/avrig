@@ -9,14 +9,16 @@ Create a recognizable, accessible PET avatar that can be selected from the 20 pr
 
 ## Product rules
 
-- The same avatar identity, face, body, palette, and motif persist across states.
-- When **not connected**, the avatar wears a T-shirt and jeans.
-- When **connected**, the same outfit gains an additional jacket. The jacket is only a connection cue.
+- The collection uses a cohesive playful, expressive stylized 3D chibi art direction with large expressive eyes and simple features.
+- Each avatar has a distinct silhouette, a bright saturated palette unique to that avatar, and materials suited to its concept.
+- Preserve each avatar's identity across states.
+- Adapt base clothing to each character form when not connected; when connected, add a form-appropriate outer layer and the shared small chest badge.
+- The connected outer layer and badge communicate connection only, not authority, role, activity, or trust.
 - Connection and activity are separate states. For example, a connected PET may be idle, thinking, or working.
 - Every state has a text/accessibility equivalent and must not depend on color or animation alone.
 - Support reduced motion and a static presentation.
 - Record asset authorship, provenance, license, and version before distribution.
-- The 20 concepts remain proposals until a visual direction and initial avatar are reviewed and selected.
+- All 20 concepts should be available in the first catalogue release. Bulb is the initial default; users may change it later. Individual model sheets and assets remain subject to visual review.
 
 ## Planned structure
 
@@ -43,7 +45,7 @@ Keep the first implementation in this repository. Do not split it into a Git sub
 4. Produce low-fidelity sketches for the T-shirt-and-jeans state and the matching jacket state.
 5. Review readability at desktop companion sizes and confirm the motif does not obscure connection status.
 
-**Gate:** One avatar direction and a paired outfit design are approved for a prototype. Do not produce all 20 character assets yet.
+**Gate:** Approve Bulb as the reference model and approve a form sheet for all 20 concepts, showing distinct silhouettes within one cohesive collection.
 
 ### Phase 2 — Define the avatar contract
 
@@ -57,9 +59,9 @@ Specify safe fallback behavior: unknown or stale connection state must not show 
 
 **Gate:** State mappings, accessible labels, outfit rules, and fallback behavior are documented.
 
-### Phase 3 — Produce one complete avatar asset set
+### Phase 3 — Produce the full first-release catalogue
 
-Create source and optimized runtime assets for the selected avatar:
+Create source and optimized runtime assets for Bulb first, then produce all 19 other concepts in batches using the approved collection style:
 
 - Compact icon and larger presentation view.
 - T-shirt-and-jeans base appearance.
@@ -69,7 +71,7 @@ Create source and optimized runtime assets for the selected avatar:
 
 Use a paired 2D illustration/sprite prototype first to validate identity, state readability, and rendering performance. Keep the asset contract capable of supporting a later rigged 3D model without changing avatar IDs or semantic states.
 
-**Gate:** The first avatar renders correctly in connected and disconnected states, remains recognizable at target sizes, and has clear text status.
+**Gate:** All 20 avatars have reviewed base and connected variants, required initial poses, readable status cues, and complete version/provenance/license metadata before the first catalogue release.
 
 ### Phase 4 — Build the presentation runtime
 
@@ -93,13 +95,13 @@ Office connection status may later drive the avatar’s connection state through
 
 **Gate:** The PET is usable as a desktop companion without owning or duplicating Employee identity or company state.
 
-### Phase 6 — Expand the catalogue
+### Phase 6 — Maintain and grow the catalogue
 
-After the selected avatar ships successfully:
+After all 20 initial options ship:
 
-1. Gather feedback on the first avatar and shared style.
-2. Refine the 20 options based on that feedback.
-3. Produce additional options in batches using the approved production pipeline.
+1. Gather feedback on the collection and shared style.
+2. Refine existing options through versioned updates without changing their stable IDs.
+3. Add new options only through the same approved production pipeline.
 4. Maintain stable IDs and record when options are available, retired, or replaced.
 5. Review artwork representation, accessibility, provenance, and licenses for every release.
 
@@ -107,7 +109,7 @@ After the selected avatar ships successfully:
 
 ## Initial acceptance criteria
 
-- One approved avatar can be rendered in all prototype states.
+- All 20 approved avatars can be selected and rendered in all required first-release states; Bulb is selected by default and can be changed later.
 - Disconnected and connected appearance differ only by the additional jacket and explicit status cue.
 - Activity does not change connection clothing.
 - Unknown or stale connectivity never appears connected.
@@ -115,13 +117,12 @@ After the selected avatar ships successfully:
 - Reduced-motion and static modes work.
 - Missing or invalid artwork falls back safely.
 - Avatar IDs remain separate from Employee IDs, roles, permissions, and Agent Runtime.
-- The first milestone does not require Office API, 3D office, or all 20 final assets.
+- The first avatar milestone does not require Office API or the 3D office, but the initial catalogue release includes all 20 avatar assets.
 
 ## Decisions to make before production
 
-- Which of the 20 candidates is the first prototype.
-- Final visual style and target size range.
-- Whether the production avatar is 2D, rigged 3D, or a staged move from 2D to 3D.
+- Final model sheets, material treatment, palette values, and target size range for each concept.
+- Final per-avatar connection-badge icon treatment and state variants.
 - Animation format and asset tooling.
 - Supported desktop platforms and performance budgets.
 - Asset provenance and contribution review process.
