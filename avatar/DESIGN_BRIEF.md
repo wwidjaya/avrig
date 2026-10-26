@@ -57,6 +57,10 @@ The earlier human outfit language (T-shirt and jeans, with an added jacket when 
 
 All 20 avatars should be available in the first catalogue release. Bulb is the initial default; users can change their choice later. Stable IDs remain attached to the concepts even if names or artwork change.
 
+## Bulb model sheet draft
+
+[Bulb character model sheet](assets/concepts/bulb-model-sheet-v1.png) provides a first reference for proportions, front/side/back silhouette, clothing details, connected jacket and badge, tablet pose, and facial-expression range. It is concept art for review, not a production-ready model specification.
+
 ## Full catalogue design exploration
 
 [The 22-avatar design sheet](assets/concepts/avatar-contact-sheet-v5.png) applies the Bulb reference style across the full collection. Each concept is shown in base T-shirt-and-jeans, connected jacket-and-badge, and tablet-carrying message/alert poses. All connected poses, including tablet poses, use the dark jacket and badge; Comet is shown in all three states. This is low-fidelity visual exploration for review, not production artwork.

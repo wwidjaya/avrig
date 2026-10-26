@@ -17,6 +17,10 @@ The catalogue now includes two human office-worker concepts alongside the origin
 
 [Bulb reference states](assets/concepts/bulb-reference-states-v1.png) is an initial visual draft showing the T-shirt-and-jeans base outfit, connected jacket and chest badge, and tablet-carrying message/alert presentation.
 
+## Bulb model sheet
+
+[Bulb character model sheet](assets/concepts/bulb-model-sheet-v1.png) shows base outfit front/side/back views, connected and message/alert looks, facial expressions, and key material details. It is visual exploration for review, not production art.
+
 ## Concept sheet
 
 The contact sheet is low-fidelity visual exploration for collection review, not approved production artwork. It shows all 22 current concepts in base, connected, and message/alert poses. Every connected pose, including tablet-carrying message/alert poses, shows the dark casual jacket and shared chest badge. Comet now has a clearly separated connected pose with the dark jacket and badge, in addition to its base and tablet poses.
