@@ -4,7 +4,7 @@
 
 ## Collection direction
 
-The PET catalogue is a cohesive collection of **playful, expressive, stylized 3D chibi characters**. Each character has a **distinct silhouette** and a **bright, saturated palette unique to that avatar**. Materials may vary to suit each concept while sharing consistent quality, proportions, lighting, and finish. Faces use large expressive eyes and simple features.
+The PET catalogue is a cohesive collection of **polished, expressive, stylized 3D chibi characters** with an office-casual presentation. Each character has a **distinct silhouette** and a **bright, saturated palette unique to that avatar**. Materials may vary to suit each concept while sharing consistent quality, proportions, lighting, and finish. Faces use large expressive eyes and simple features.
 
 Each avatar’s character form directly reflects its name and concept. The visual cues below are starting art directions for design sheets, not finished model specifications.
 
