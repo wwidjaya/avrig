@@ -34,6 +34,7 @@ These 22 options are candidate visual identities for the avrig-ai PET. Each keep
 - Keep the face, body, motif, and palette consistent between connection states.
 - Use the T-shirt-and-jeans base outfit when not connected; add a jacket when connected.
 - Keep the motif subtle so the connection state remains easy to read.
+- A tablet prop may be shown while the PET is presenting a message or alert; it does not indicate connection state.
 - Provide text and accessible status labels; never communicate important state through artwork or color alone.
 - Review representation, readability, and asset provenance before selecting or releasing a design.
 - Treat avatar identity as presentation metadata, separate from Actor/Employee identity, permissions, and Agent Runtime.
