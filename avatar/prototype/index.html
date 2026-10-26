@@ -51,18 +51,17 @@ camera.position.set(0,1.8,8.8);
 const renderer=new THREE.WebGLRenderer({antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.outputColorSpace=THREE.SRGBColorSpace;
-renderer.toneMapping=THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure=1.12;
+renderer.toneMapping=THREE.NoToneMapping;
 renderer.shadowMap.enabled=true;
 renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 stage.appendChild(renderer.domElement);
 
-scene.add(new THREE.HemisphereLight(0xe7f3ff,0x34303a,2.1));
-const key=new THREE.DirectionalLight(0xfff1cc,3.2);key.position.set(-3,6,5);key.castShadow=true;scene.add(key);
-const fill=new THREE.PointLight(0xffa632,34,12);fill.position.set(0,2.8,1.2);scene.add(fill);
+scene.add(new THREE.HemisphereLight(0xe7f3ff,0x34303a,1.45));
+const key=new THREE.DirectionalLight(0xfff1cc,2.2);key.position.set(-3,6,5);key.castShadow=true;scene.add(key);
+const fill=new THREE.PointLight(0xffa632,19,12);fill.position.set(0,2.8,1.2);scene.add(fill);
 
 const mat=(color,roughness=.65,metalness=0,emissive=0x000000,intensity=0)=>new THREE.MeshStandardMaterial({color,roughness,metalness,emissive,emissiveIntensity:intensity});
-const bulbMat=new THREE.MeshPhysicalMaterial({color:0xffb321,roughness:.2,metalness:.02,clearcoat:.95,clearcoatRoughness:.08,emissive:0xff8500,emissiveIntensity:.13});
+const bulbMat=new THREE.MeshPhysicalMaterial({color:0xffa51a,roughness:.2,metalness:.02,clearcoat:.9,clearcoatRoughness:.1,emissive:0xff7008,emissiveIntensity:.2});
 bulbMat.envMapIntensity=1.1;
 const white=mat(0xf4f0e9,.86), denim=mat(0x315c90,.86), navy=mat(0x142d51,.5,.04), shoe=mat(0xf6f4ef,.75), dark=mat(0x231811,.2), iris=mat(0x7b3a0c,.25), badgeMat=mat(0x21a8ff,.3,.1,0x087aff,.5);
 const root=new THREE.Group();scene.add(root);
@@ -71,7 +70,10 @@ const sphere=new THREE.SphereGeometry(1,32,24), capsule=new THREE.CapsuleGeometr
 const ball=make(sphere,bulbMat,root,[0,2.35,0],[.92,.92,.72]);
 make(sphere,mat(0xffe56a,.35,0,0xffbf24,.4),root,[0,1.64,0],[.24,.22,.23]);
 const torso=make(new THREE.CapsuleGeometry(.34,.52,8,16),white,root,[0,1.16,0],[1,.88,.82]);
-for(const x of [-.37,.37])make(sphere,white,root,[x,1.37,.01],[.22,.19,.76]);
+for(const x of [-.37,.37]){
+ const sleeve=make(new THREE.CapsuleGeometry(.12,.18,8,12),white,root,[x,1.36,.015],[1,1,.82]);
+ sleeve.rotation.z=x<0?-.52:.52;
+}
 make(new THREE.TorusGeometry(.205,.025,8,32),mat(0xe6e0d5,.8),root,[0,1.49,.015],[1,.76,.8]);
 const legs=[];
 const denimStitch=mat(0x7594bc,.8),deepDenim=mat(0x233f66,.8);
@@ -102,9 +104,9 @@ const smileCurve=new THREE.QuadraticBezierCurve3(
 make(new THREE.TubeGeometry(smileCurve,20,.018,8,false),mat(0x74320f,.4),root,[0,0,0]);
 const filament=mat(0xfff0a0,.24,0,0xffc62f,1.25);
 const filamentPath=new THREE.CatmullRomCurve3([
- new THREE.Vector3(0,2.69,.67),new THREE.Vector3(-.12,2.6,.71),new THREE.Vector3(-.15,2.48,.735),
- new THREE.Vector3(-.1,2.38,.75),new THREE.Vector3(0,2.45,.76),new THREE.Vector3(.1,2.38,.75),
- new THREE.Vector3(.15,2.48,.735),new THREE.Vector3(.12,2.6,.71),new THREE.Vector3(0,2.69,.67)
+ new THREE.Vector3(0,2.72,.65),new THREE.Vector3(-.09,2.66,.69),new THREE.Vector3(-.13,2.58,.71),
+ new THREE.Vector3(-.11,2.51,.72),new THREE.Vector3(0,2.56,.74),new THREE.Vector3(.11,2.51,.72),
+ new THREE.Vector3(.13,2.58,.71),new THREE.Vector3(.09,2.66,.69),new THREE.Vector3(0,2.72,.65)
 ]);
 make(new THREE.TubeGeometry(filamentPath,64,.018,8,false),filament,root,[0,0,0]);
 
